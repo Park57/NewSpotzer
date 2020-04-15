@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+<package>Model</package>
+	<entity class="Model.Genre">
+		<table name="genre" />
+		<attributes>
+			<id name="codeGenre">
+					<column name="codeGenre" />
+					<generated-value strategy="IDENTITY"/>
+			</id>
+			<basic name="libelle">
+					<column name="libelleGenre"/>
+			</basic>
+		</attributes>
+	</entity>
+	<entity class="Model.Artiste">
+		<table name="artiste" />
+		<attributes>
+			<id name="codeArtiste">
+					<column name="codeArtiste" />
+					<generated-value strategy="IDENTITY"/>
+			</id>
+			<basic name="nomArtiste">
+					<column name="nomArtiste"/>
+			</basic>
+		</attributes>
+	</entity>
+	<entity class="Model.Album">
+		<table name="album" />
+		<attributes>
+			<id name="codeAlbum">
+					<column name="codeAlbum" />
+					<generated-value strategy="IDENTITY"/>
+			</id>
+			<basic name="titreAlbum">
+					<column name="nomAlbum"/>
+			</basic>
+			<basic name="annee">
+					<column name="anneeAlbum"/>
+			</basic>
+		</attributes>
+	</entity>
+	<entity class="Model.Utilisateur">
+        <table name="utilisateur" />
+        <attributes>
+            <id name="codeUtilisateur">
+                    <column name="codeUtilisateur" />
+                    <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="nom">
+                    <column name="nom"/>
+            </basic>
+            <basic name="prenom">
+                    <column name="prenom"/>
+            </basic>
+            <basic name="pseudo">
+                    <column name="pseudo"/>
+            </basic>
+            <basic name="motDePasse">
+                    <column name="motDePasse"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="Model.Morceau">
+        <table name="morceau" />
+        <attributes>
+            <id name="id">
+                    <column name="id" />
+                    <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="titre">
+                    <column name="titre"/>
+            </basic>
+            <basic name="album">
+                    <column name="album"/>
+            </basic>
+            <basic name="artiste">
+                    <column name="artiste"/>
+            </basic>
+            <basic name="genre">
+                    <column name="genre"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
