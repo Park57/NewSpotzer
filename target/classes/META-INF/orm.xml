@@ -61,4 +61,25 @@
             </basic>
         </attributes>
     </entity>
+    <entity class="Model.Morceau">
+        <table name="morceau" />
+        <attributes>
+            <id name="id">
+                    <column name="id" />
+                    <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="titre">
+                    <column name="titre"/>
+            </basic>
+            <basic name="album">
+                    <column name="codeAlbum"/>
+            </basic>
+            <basic name="artiste">
+                    <column name="codeArtiste"/>
+            </basic>
+            <basic name="genre">
+                    <column name="codeGenre"/>
+            </basic>
+        </attributes>
+    </entity>
 </entity-mappings>
