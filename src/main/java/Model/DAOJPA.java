@@ -50,8 +50,6 @@ public class DAOJPA {
 
 	public static void viderBase() // Pra6que pour remeVre � 0 la base avant des tests
 	{
-		/*getManager().createQuery("DELETE FROM Morceau").executeUpdate();
-		getManager().createNativeQuery("ALTER TABLE chanson AUTO_INCREMENT = 1").executeUpdate();*/
 		getManager().createQuery("DELETE FROM Album").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE album AUTO_INCREMENT = 1").executeUpdate();
 		getManager().createQuery("DELETE FROM Artiste").executeUpdate();
@@ -62,9 +60,5 @@ public class DAOJPA {
 		getManager().createNativeQuery("ALTER TABLE utilisateur AUTO_INCREMENT = 1").executeUpdate();
 		getManager().createQuery("DELETE FROM Album").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE album AUTO_INCREMENT = 1").executeUpdate();
-		/*getManager().createQuery("DELETE FROM Concert").executeUpdate();// Notez la requ�te JPQL sur la classe Concert
-		getManager().createNativeQuery("ALTER TABLE concert AUTO_INCREMENT = 1").executeUpdate();*/// Notez la requ�te SQL
-																									// sur la table
-																									// concert
 	}
 }/* Fin de la classe DAOJPA */
