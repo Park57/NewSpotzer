@@ -10,11 +10,10 @@ public class Genre implements Serializable {
 	private String libelleGenre;
 	private Set<Morceau> morceauxGenre = new HashSet<Morceau>();
 
-	public Genre(String libelleGenre, Set<Morceau> morceauxGenre) {
+	public Genre(String libelleGenre) {
 		this.codeGenre = -1;
 		if (libelleGenre != null)
 			this.libelleGenre = libelleGenre;
-		this.morceauxGenre = morceauxGenre;
 	}
 
 	public int getCodeGenre() {

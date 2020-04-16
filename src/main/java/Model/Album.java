@@ -12,11 +12,10 @@ public class Album implements Serializable {
 	private int anneeAlbum;
 
 
-	public Album(String titreAlbum, Set<Morceau> morceauxAlbum, int anneeAlbum) {
+	public Album(String titreAlbum, int anneeAlbum) {
 		this.codeAlbum = -1;
 		if (titreAlbum != null)
 			this.titreAlbum = titreAlbum;
-		this.morceauxAlbum = morceauxAlbum;
 		if (anneeAlbum != -1)
 			this.anneeAlbum = anneeAlbum;
 	}

@@ -1,92 +1,250 @@
 package Model;
 
-import java.io.Serializable;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Morceau implements Serializable{
-	private int id;
-	private String titre;
-	private Album album;
-	private Set<Artiste> artiste = new HashSet<Artiste>();
-	private Set<Genre> genre = new HashSet<Genre>();
+import org.farng.mp3.MP3File;
+import org.farng.mp3.TagException;
+import org.farng.mp3.id3.AbstractID3v2;
 
-	public Morceau(String titre, Album album, Artiste artiste, Genre genre) {
-		this.id = -1;
-		this.titre = titre;
-		this.album = album;
-		this.artiste.add(artiste);
-		this.genre.add(genre);
-	}
-
-	public Morceau() {
-		super();
-	}
+public class Morceau {
+	private int codeMorceau;
+	private String titreMorceau;
+	private Album albumMorceau;
+	private Artiste artisteMorceau;
+	private Set<Genre> genresMorceau = new HashSet<Genre>();
+	private String cheminMorceau;
+	private int anneeMorceau;
+	private String parolesMorceau;
+	private String auteurCompositeurMorceau;
+	private String commentaireMorceau;
 
 	/*
-	 * public static void main(String[] args) { try { FileInputStream
-	 * fileInputStream = new FileInputStream("song.mp3"); Player player = new
-	 * Player(fileInputStream); System.out.println("Song is playing...");
-	 * player.play(); } catch (FileNotFoundException e) { // TODO Auto-generated
-	 * catch block e.printStackTrace(); } catch (JavaLayerException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * }
+	 * Ici on construit un morceau. On reçoit un type File, qu'on passe en
+	 * MP3File, si cela soulève une exception alors on sait que ce n'est pas un
+	 * mp3
 	 */
+	public Morceau(File mp3) {
+		MP3File morceau;
+		try {
+			morceau = new MP3File(mp3);
+			AbstractID3v2 tags = morceau.getID3v2Tag();
 
-	public int getId() {
-		return id;
+			// on complète les champs
+			this.codeMorceau = -1;
+
+			// completion du titre
+			try {
+				this.titreMorceau = tags.getSongTitle();
+				System.out.println("Titre morceau : " + this.titreMorceau + "\n");
+			} catch (NullPointerException e) {
+				this.titreMorceau = "null";
+				System.out.println("Titre vide\n");
+			}
+
+			// completion de l'album
+			try {
+				this.albumMorceau = new Album(tags.getAlbumTitle(), Integer.parseInt(tags.getYearReleased()));
+				System.out.println("Album : " + this.albumMorceau + "\n");
+			} catch (NullPointerException e) {
+				this.albumMorceau = new Album();
+				System.out.println("Album vide\n");
+			} catch (NumberFormatException e) {
+				System.out.println("Erreur nombre dans annee\n");
+			}
+
+
+			// completion de l'artiste
+			try {
+				this.artisteMorceau = new Artiste(tags.getLeadArtist());
+				System.out.println("Artiste : " + this.artisteMorceau + "\n");
+			} catch (NullPointerException e) {
+				this.artisteMorceau = new Artiste("null");
+			}
+
+			// completion des genres
+			try {
+				String[] genres = tags.getSongGenre().split(",");
+				for (String genre : genres) {
+					this.genresMorceau.add(new Genre(genre));
+				}
+				System.out.println("Genre(s) : " + this.genresMorceau + "\n");
+			} catch (NullPointerException e) {
+				System.out.println("Genre vide\n");
+			}
+
+			// completion du chemin
+			try {
+				File rep = new File("./bibliotheque");
+				File fileApresDeplacement = new File(rep, mp3.getName());
+				boolean resultat = mp3.renameTo(fileApresDeplacement);
+				if (resultat) {
+					System.out.println("Le fichier a été déplacé vers==> " + rep);
+				} else
+					System.out.println("Impossible de déplacer ce fichier");
+
+				String cheminAbsolu = fileApresDeplacement.getAbsolutePath();
+				System.out.println("Le chemin absolu : " + cheminAbsolu);
+				String[] decoup = cheminAbsolu.split("NewSpotzer");
+				String cheminRelatif = decoup[1].substring(1, decoup[1].length());
+				System.out.println("Le chemin relatif : " + cheminRelatif);
+
+				this.cheminMorceau = cheminRelatif;
+				System.out.println("Chemin du morceau après déplacement : " + this.cheminMorceau + "\n");
+
+			} catch (NullPointerException e) {
+				System.out.println("On est pas censé passer par là\n");
+			}
+
+			// completion de l'annee
+			try {
+				this.anneeMorceau = Integer.parseInt(tags.getYearReleased());
+				System.out.println("Annee : " + this.anneeMorceau + "\n");
+			} catch (NullPointerException e) {
+				this.anneeMorceau = -1;
+				System.out.println("Annee nulle\n");
+			} catch (NumberFormatException e) {
+				System.out.println("Erreur dans annee\n");
+			}
+
+			// completion des paroles
+			try {
+				this.parolesMorceau = tags.getSongLyric();
+				System.out.println("Paroles du morceau " + this.parolesMorceau + "\n");
+			} catch (NullPointerException e) {
+				System.out.println("Pas de paroles\n");
+			}
+
+			// completion de l'auteur compositeur
+			try {
+				this.auteurCompositeurMorceau = tags.getAuthorComposer();
+				System.out.println("Auteur compositeur : " + this.auteurCompositeurMorceau + "\n");
+			} catch (NullPointerException e) {
+				this.auteurCompositeurMorceau = "null";
+				System.out.println("Auteur compositeur vide\n");
+			}
+
+			// completion des commentaires
+			try {
+				this.commentaireMorceau = tags.getSongComment();
+				System.out.println("Commentaire : " + this.commentaireMorceau + "\n");
+			} catch (NullPointerException e) {
+				System.out.println("PAS DE COMMENTAIRE\n");
+			}
+			
+			System.out.println("\n----------------------------------------------------------------------\n");
+			
+		} catch (IOException e) {
+			System.out.println(mp3.getName() + " n'est pas un fihcier de type mp3...");
+			// e.printStackTrace();
+		} catch (TagException e) {
+			System.out.println("tag excpetion");
+			// e.printStackTrace();
+		}
+
+	}// fin constructeur
+
+	///////////////////////////
+	//// GETTERS & SETTERS ////
+	///////////////////////////
+
+	public int getCodeMorceau() {
+		return codeMorceau;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public String getTitreMorceau() {
+		return titreMorceau;
 	}
 
-	public String getTitre() {
-		return titre;
+	public void setTitreMorceau(String titreMorceau) {
+		this.titreMorceau = titreMorceau;
 	}
 
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public Album getAlbumMorceau() {
+		return albumMorceau;
 	}
 
-	public Album getAlbum() {
-		return album;
+	public void setAlbumMorceau(Album albumMorceau) {
+		this.albumMorceau = albumMorceau;
 	}
 
-	public void setAlbum(Album album) {
-		this.album = album;
+	public Artiste getArtisteMorceau() {
+		return artisteMorceau;
 	}
 
-	public Set<Artiste> getArtiste() {
-		return artiste;
+	public void setArtisteMorceau(Artiste artisteMorceau) {
+		this.artisteMorceau = artisteMorceau;
 	}
 
-	public void setArtiste(Set<Artiste> artiste) {
-		this.artiste = artiste;
+	public Set<Genre> getGenresMorceau() {
+		return genresMorceau;
 	}
 
-
-
-	public Set<Genre> getGenre() {
-		return genre;
+	public void setGenresMorceau(Set<Genre> genresMorceau) {
+		this.genresMorceau = genresMorceau;
 	}
 
-	public void setGenre(Set<Genre> genre) {
-		this.genre = genre;
+	public String getCheminMorceau() {
+		return cheminMorceau;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((album == null) ? 0 : album.hashCode());
-		result = prime * result + ((artiste == null) ? 0 : artiste.hashCode());
-		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((titre == null) ? 0 : titre.hashCode());
-		return result;
+	public void setCheminMorceau(String cheminMorceau) {
+		this.cheminMorceau = cheminMorceau;
 	}
+
+	public int getAnneeMorceau() {
+		return anneeMorceau;
+	}
+
+	public void setAnneeMorceau(int anneeMorceau) {
+		this.anneeMorceau = anneeMorceau;
+	}
+
+	public String getParolesMorceau() {
+		return parolesMorceau;
+	}
+
+	public void setParolesMorceau(String parolesMorceau) {
+		this.parolesMorceau = parolesMorceau;
+	}
+
+	public String getAuteurCompositeurMorceau() {
+		return auteurCompositeurMorceau;
+	}
+
+	public void setAuteurCompositeurMorceau(String auteurCompositeurMorceau) {
+		this.auteurCompositeurMorceau = auteurCompositeurMorceau;
+	}
+
+	public String getCommentaireMorceau() {
+		return commentaireMorceau;
+	}
+
+	public void setCommentaireMorceau(String commentaireMorceau) {
+		this.commentaireMorceau = commentaireMorceau;
+	}
+
+	////////////////////////////////
+	/// AJOUTER RETIRER PRESENCE ///
+	////////////////////////////////
+
+	public void ajoutGenreMorceau(Genre g) {
+		this.genresMorceau.add(g);
+	}
+
+	public boolean presenceGenreMorceau(Genre g) {
+		return this.genresMorceau.contains(g);
+	}
+
+	public void retirerGenreMorceau(Genre g) {
+		this.genresMorceau.remove(g);
+	}
+
+	/////////////////////
+	// EQUALS TOSTRING //
+	/////////////////////
 
 	@Override
 	public boolean equals(Object obj) {
@@ -97,29 +255,60 @@ public class Morceau implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Morceau other = (Morceau) obj;
-		if (album == null) {
-			if (other.album != null)
+		if (albumMorceau == null) {
+			if (other.albumMorceau != null)
 				return false;
-		} else if (!album.equals(other.album))
+		} else if (!albumMorceau.equals(other.albumMorceau))
 			return false;
-		if (artiste == null) {
-			if (other.artiste != null)
+		if (anneeMorceau != other.anneeMorceau)
+			return false;
+		if (artisteMorceau == null) {
+			if (other.artisteMorceau != null)
 				return false;
-		} else if (!artiste.equals(other.artiste))
+		} else if (!artisteMorceau.equals(other.artisteMorceau))
 			return false;
-		if (genre == null) {
-			if (other.genre != null)
+		if (auteurCompositeurMorceau == null) {
+			if (other.auteurCompositeurMorceau != null)
 				return false;
-		} else if (!genre.equals(other.genre))
+		} else if (!auteurCompositeurMorceau.equals(other.auteurCompositeurMorceau))
 			return false;
-		if (id != other.id)
-			return false;
-		if (titre == null) {
-			if (other.titre != null)
+		if (cheminMorceau == null) {
+			if (other.cheminMorceau != null)
 				return false;
-		} else if (!titre.equals(other.titre))
+		} else if (!cheminMorceau.equals(other.cheminMorceau))
+			return false;
+		if (codeMorceau != other.codeMorceau)
+			return false;
+		if (commentaireMorceau == null) {
+			if (other.commentaireMorceau != null)
+				return false;
+		} else if (!commentaireMorceau.equals(other.commentaireMorceau))
+			return false;
+		if (genresMorceau == null) {
+			if (other.genresMorceau != null)
+				return false;
+		} else if (!genresMorceau.equals(other.genresMorceau))
+			return false;
+		if (parolesMorceau == null) {
+			if (other.parolesMorceau != null)
+				return false;
+		} else if (!parolesMorceau.equals(other.parolesMorceau))
+			return false;
+		if (titreMorceau == null) {
+			if (other.titreMorceau != null)
+				return false;
+		} else if (!titreMorceau.equals(other.titreMorceau))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Morceau [codeMorceau=" + codeMorceau + ", titreMorceau=" + titreMorceau + ", albumMorceau="
+				+ albumMorceau + ", artistesMorceau=" + artisteMorceau + ", genresMorceau=" + genresMorceau
+				+ ", cheminMorceau=" + cheminMorceau + ", anneeMorceau=" + anneeMorceau + ", parolesMorceau="
+				+ parolesMorceau + ", auteurCompositeurMorceau=" + auteurCompositeurMorceau + ", commentaireMorceau="
+				+ commentaireMorceau + "]";
 	}
 
 }

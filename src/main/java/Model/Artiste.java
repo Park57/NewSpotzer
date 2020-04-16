@@ -9,10 +9,9 @@ public class Artiste implements Serializable {
 	private String nomArtiste;
 	private Set<Morceau> morceauxArtiste = new HashSet<Morceau>();
 
-	public Artiste(String nomArtiste, Set<Morceau> morceauxArtiste) {
+	public Artiste(String nomArtiste) {
 		this.codeArtiste = -1;
 		this.nomArtiste = nomArtiste;
-		this.morceauxArtiste = morceauxArtiste;
 	}
 
 	public int getCodeArtiste() {
