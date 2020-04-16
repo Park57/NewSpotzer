@@ -1,22 +1,20 @@
 package Model;
 
-public class Genre {
-	
-	private int codeGenre;
-	private String libelle;
-	
-	
-	public Genre(int codeGenre, String libelle) {
-		this.codeGenre = codeGenre;
-		this.libelle = libelle;
-	}
-	
-	public Genre() {
-	}
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-	public Genre(String libelle) {
-		this.libelle= libelle;
-		this.codeGenre=-1;
+public class Genre implements Serializable {
+
+	private int codeGenre;
+	private String libelleGenre;
+	private Set<Morceau> morceauxGenre = new HashSet<Morceau>();
+
+	public Genre(String libelleGenre, Set<Morceau> morceauxGenre) {
+		this.codeGenre = -1;
+		if (libelleGenre != null)
+			this.libelleGenre = libelleGenre;
+		this.morceauxGenre = morceauxGenre;
 	}
 
 	public int getCodeGenre() {
@@ -28,11 +26,34 @@ public class Genre {
 	}
 
 	public String getLibelle() {
-		return libelle;
+		return libelleGenre;
 	}
 
 	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+		this.libelleGenre = libelle;
+	}
+
+	public Set<Morceau> getMorceauxGenre() {
+		return morceauxGenre;
+	}
+
+	public void setMorceauxGenre(Set<Morceau> morceauxGenre) {
+		this.morceauxGenre = morceauxGenre;
+	}
+
+	public void ajouterMorceauGenre(Morceau m) {
+		morceauxGenre.add(m);
+	}
+
+	public void retirerMorceauGenre(Morceau m) {
+		morceauxGenre.remove(m);
+	}
+
+	public boolean presenceMorceauGenre(Morceau m) {
+		if (morceauxGenre.contains(m))
+			return true;
+		return false;
+
 	}
 
 	@Override
@@ -40,7 +61,8 @@ public class Genre {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + codeGenre;
-		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
+		result = prime * result + ((libelleGenre == null) ? 0 : libelleGenre.hashCode());
+		result = prime * result + ((morceauxGenre == null) ? 0 : morceauxGenre.hashCode());
 		return result;
 	}
 
@@ -55,11 +77,22 @@ public class Genre {
 		Genre other = (Genre) obj;
 		if (codeGenre != other.codeGenre)
 			return false;
-		if (libelle == null) {
-			if (other.libelle != null)
+		if (libelleGenre == null) {
+			if (other.libelleGenre != null)
 				return false;
-		} else if (!libelle.equals(other.libelle))
+		} else if (!libelleGenre.equals(other.libelleGenre))
+			return false;
+		if (morceauxGenre == null) {
+			if (other.morceauxGenre != null)
+				return false;
+		} else if (!morceauxGenre.equals(other.morceauxGenre))
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Genre [codeGenre=" + codeGenre + ", libelle=" + libelleGenre + ", morceauxGenre=" + morceauxGenre + "]";
+	}
+
 }

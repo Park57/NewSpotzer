@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
-<package>Model</package>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<package>Model</package>
 	<entity class="Model.Genre">
 		<table name="genre" />
 		<attributes>
 			<id name="codeGenre">
-					<column name="codeGenre" />
-					<generated-value strategy="IDENTITY"/>
+				<column name="codeGenre" />
+				<generated-value strategy="IDENTITY" />
 			</id>
 			<basic name="libelle">
-					<column name="libelleGenre"/>
+				<column name="libelleGenre" />
 			</basic>
 		</attributes>
 	</entity>
@@ -17,11 +19,11 @@
 		<table name="artiste" />
 		<attributes>
 			<id name="codeArtiste">
-					<column name="codeArtiste" />
-					<generated-value strategy="IDENTITY"/>
+				<column name="codeArtiste" />
+				<generated-value strategy="IDENTITY" />
 			</id>
 			<basic name="nomArtiste">
-					<column name="nomArtiste"/>
+				<column name="nomArtiste" />
 			</basic>
 		</attributes>
 	</entity>
@@ -29,57 +31,69 @@
 		<table name="album" />
 		<attributes>
 			<id name="codeAlbum">
-					<column name="codeAlbum" />
-					<generated-value strategy="IDENTITY"/>
+				<column name="codeAlbum" />
+				<generated-value strategy="IDENTITY" />
 			</id>
 			<basic name="titreAlbum">
-					<column name="nomAlbum"/>
+				<column name="nomAlbum" />
 			</basic>
 			<basic name="annee">
-					<column name="anneeAlbum"/>
+				<column name="anneeAlbum" />
 			</basic>
 		</attributes>
 	</entity>
 	<entity class="Model.Utilisateur">
-        <table name="utilisateur" />
-        <attributes>
-            <id name="codeUtilisateur">
-                    <column name="codeUtilisateur" />
-                    <generated-value strategy="IDENTITY"/>
-            </id>
-            <basic name="nom">
-                    <column name="nom"/>
-            </basic>
-            <basic name="prenom">
-                    <column name="prenom"/>
-            </basic>
-            <basic name="pseudo">
-                    <column name="pseudo"/>
-            </basic>
-            <basic name="motDePasse">
-                    <column name="motDePasse"/>
-            </basic>
-        </attributes>
-    </entity>
-    <entity class="Model.Morceau">
-        <table name="morceau" />
-        <attributes>
-            <id name="id">
-                    <column name="id" />
-                    <generated-value strategy="IDENTITY"/>
-            </id>
-            <basic name="titre">
-                    <column name="titre"/>
-            </basic>
-            <basic name="album">
-                    <column name="codeAlbum"/>
-            </basic>
-            <basic name="artiste">
-                    <column name="codeArtiste"/>
-            </basic>
-            <basic name="genre">
-                    <column name="codeGenre"/>
-            </basic>
-        </attributes>
-    </entity>
+		<table name="utilisateur" />
+		<attributes>
+			<id name="codeUtilisateur">
+				<column name="codeUtilisateur" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="nom">
+				<column name="nom" />
+			</basic>
+			<basic name="prenom">
+				<column name="prenom" />
+			</basic>
+			<basic name="pseudo">
+				<column name="pseudo" />
+			</basic>
+			<basic name="motDePasse">
+				<column name="motDePasse" />
+			</basic>
+		</attributes>
+	</entity>
+	<entity class="Model.Morceau">
+		<table name="morceau" />
+		<attributes>
+			<id name="id">
+				<column name="codeMorceau" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="titre">
+				<column name="titreMorceau" />
+			</basic>
+			<basic name="album">
+				<column name="codeAlbum" />
+			</basic>
+			<basic name="artiste">
+				<column name="codeArtiste" />
+			</basic>
+			<basic name="genre">
+				<column name="codeGenre" />
+			</basic>
+			<many-to-many name="artiste" target-entity="Artiste">
+				<join-table name="chanter">
+					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
+					<inverse-join-column name="codeArtiste" referenced-column-name="codeArtiste" />
+				</join-table>
+			</many-to-many>
+			<many-to-many name="genre" target-entity="Genre">
+				<join-table name="detenir">
+					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
+					<inverse-join-column name="codeGenre" referenced-column-name="codeGenre" />
+				</join-table>
+			</many-to-many>
+		</attributes>
+	</entity>
 </entity-mappings>

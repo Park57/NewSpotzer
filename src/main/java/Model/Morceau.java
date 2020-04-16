@@ -1,24 +1,28 @@
 package Model;
 
-public class Morceau {
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Morceau implements Serializable{
 	private int id;
 	private String titre;
 	private Album album;
-	private Artiste artiste;
-	private Genre genre;
+	private Set<Artiste> artiste = new HashSet<Artiste>();
+	private Set<Genre> genre = new HashSet<Genre>();
 
-	public Morceau( String titre, Album album, Artiste artiste, Genre genre) {
+	public Morceau(String titre, Album album, Artiste artiste, Genre genre) {
 		this.id = -1;
 		this.titre = titre;
 		this.album = album;
-		this.artiste = artiste;
-		this.genre = genre;
+		this.artiste.add(artiste);
+		this.genre.add(genre);
 	}
 
 	public Morceau() {
 		super();
 	}
-	
+
 	/*
 	 * public static void main(String[] args) { try { FileInputStream
 	 * fileInputStream = new FileInputStream("song.mp3"); Player player = new
@@ -54,19 +58,21 @@ public class Morceau {
 		this.album = album;
 	}
 
-	public Artiste getArtiste() {
+	public Set<Artiste> getArtiste() {
 		return artiste;
 	}
 
-	public void setArtiste(Artiste artiste) {
+	public void setArtiste(Set<Artiste> artiste) {
 		this.artiste = artiste;
 	}
 
-	public Genre getGenre() {
+
+
+	public Set<Genre> getGenre() {
 		return genre;
 	}
 
-	public void setGenre(Genre genre) {
+	public void setGenre(Set<Genre> genre) {
 		this.genre = genre;
 	}
 
@@ -116,7 +122,4 @@ public class Morceau {
 		return true;
 	}
 
-	
-
-	
 }

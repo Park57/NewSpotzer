@@ -1,17 +1,18 @@
 package Model;
 
-public class Artiste {
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Artiste implements Serializable {
 	private int codeArtiste;
 	private String nomArtiste;
-	
-	
-	public Artiste() {
-		super();
-	}
+	private Set<Morceau> morceauxArtiste = new HashSet<Morceau>();
 
-	public Artiste(String nomArtiste) {
+	public Artiste(String nomArtiste, Set<Morceau> morceauxArtiste) {
 		this.codeArtiste = -1;
 		this.nomArtiste = nomArtiste;
+		this.morceauxArtiste = morceauxArtiste;
 	}
 
 	public int getCodeArtiste() {
@@ -30,11 +31,34 @@ public class Artiste {
 		this.nomArtiste = nomArtiste;
 	}
 
+	public Set<Morceau> getMorceauxArtiste() {
+		return morceauxArtiste;
+	}
+
+	public void setMorceauxArtiste(Set<Morceau> morceauxArtiste) {
+		this.morceauxArtiste = morceauxArtiste;
+	}
+
+	public void ajoutMorceauArtiste(Morceau m) {
+		morceauxArtiste.add(m);
+	}
+
+	public void retirerMorceauArtiste(Morceau m) {
+		morceauxArtiste.remove(m);
+	}
+
+	public boolean presenceMorceauArtiste(Morceau m) {
+		if (morceauxArtiste.contains(m))
+			return true;
+		return false;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + codeArtiste;
+		result = prime * result + ((morceauxArtiste == null) ? 0 : morceauxArtiste.hashCode());
 		result = prime * result + ((nomArtiste == null) ? 0 : nomArtiste.hashCode());
 		return result;
 	}
@@ -50,6 +74,11 @@ public class Artiste {
 		Artiste other = (Artiste) obj;
 		if (codeArtiste != other.codeArtiste)
 			return false;
+		if (morceauxArtiste == null) {
+			if (other.morceauxArtiste != null)
+				return false;
+		} else if (!morceauxArtiste.equals(other.morceauxArtiste))
+			return false;
 		if (nomArtiste == null) {
 			if (other.nomArtiste != null)
 				return false;
@@ -58,8 +87,11 @@ public class Artiste {
 		return true;
 	}
 
-
-	
+	@Override
+	public String toString() {
+		return "Artiste [codeArtiste=" + codeArtiste + ", nomArtiste=" + nomArtiste + ", morceauxArtiste="
+				+ morceauxArtiste + "]";
+	}
 	
 	
 }

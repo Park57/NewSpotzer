@@ -1,22 +1,28 @@
 package Model;
 
-public class Album {
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Album implements Serializable {
 
 	private int codeAlbum;
 	private String titreAlbum;
-	private int annee;
+	private Set<Morceau> morceauxAlbum = new HashSet<Morceau>();
+	private int anneeAlbum;
 
-	public Album(String titreAlbum, int annee) {
+
+	public Album(String titreAlbum, Set<Morceau> morceauxAlbum, int anneeAlbum) {
 		this.codeAlbum = -1;
-		this.titreAlbum = titreAlbum;
-		this.annee = annee;
+		if (titreAlbum != null)
+			this.titreAlbum = titreAlbum;
+		this.morceauxAlbum = morceauxAlbum;
+		if (anneeAlbum != -1)
+			this.anneeAlbum = anneeAlbum;
 	}
 
-	
 	public Album() {
-		super();
 	}
-
 
 	public int getCodeAlbum() {
 		return codeAlbum;
@@ -34,25 +40,46 @@ public class Album {
 		this.titreAlbum = titreAlbum;
 	}
 
-	public int getAnnee() {
-		return annee;
+	public Set<Morceau> getMorceauxAlbum() {
+		return morceauxAlbum;
 	}
 
-	public void setAnnee(int annee) {
-		this.annee = annee;
+	public void setMorceauxAlbum(Set<Morceau> morceauxAlbum) {
+		this.morceauxAlbum = morceauxAlbum;
 	}
 
+	public int getAnneeAlbum() {
+		return anneeAlbum;
+	}
+
+	public void setAnneeAlbum(int anneeAlbum) {
+		this.anneeAlbum = anneeAlbum;
+	}
 	
+	public void ajoutMorceauAlbum(Morceau m){
+		morceauxAlbum.add(m);
+	}
+	
+	public void retirerMorceauAlbum(Morceau m){
+		morceauxAlbum.remove(m);
+	}
+	
+	public boolean presenceMorceauAlbum(Morceau m){
+		if(morceauxAlbum.contains(m))
+			return true;
+		return false;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + annee;
+		result = prime * result + anneeAlbum;
 		result = prime * result + codeAlbum;
+		result = prime * result + ((morceauxAlbum == null) ? 0 : morceauxAlbum.hashCode());
 		result = prime * result + ((titreAlbum == null) ? 0 : titreAlbum.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -63,9 +90,14 @@ public class Album {
 		if (getClass() != obj.getClass())
 			return false;
 		Album other = (Album) obj;
-		if (annee != other.annee)
+		if (anneeAlbum != other.anneeAlbum)
 			return false;
 		if (codeAlbum != other.codeAlbum)
+			return false;
+		if (morceauxAlbum == null) {
+			if (other.morceauxAlbum != null)
+				return false;
+		} else if (!morceauxAlbum.equals(other.morceauxAlbum))
 			return false;
 		if (titreAlbum == null) {
 			if (other.titreAlbum != null)
@@ -74,6 +106,15 @@ public class Album {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Album [codeAlbum=" + codeAlbum + ", titreAlbum=" + titreAlbum + ", morceauxAlbum=" + morceauxAlbum
+				+ ", anneeAlbum=" + anneeAlbum + "]";
+	}
 	
 	
+	
+	
+
 }
