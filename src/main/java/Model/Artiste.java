@@ -13,6 +13,10 @@ public class Artiste implements Serializable {
 		this.codeArtiste = -1;
 		this.nomArtiste = nomArtiste;
 	}
+	
+	public Artiste(){
+		
+	}
 
 	public int getCodeArtiste() {
 		return codeArtiste;

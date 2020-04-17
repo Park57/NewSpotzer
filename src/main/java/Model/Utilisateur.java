@@ -22,6 +22,10 @@ public class Utilisateur {
 		this.pseudoUtilisateur = pseudoUtilisateur;
 		this.passwordUtilisateur = passwordUtilisateur;
 	}
+	
+	public Utilisateur(){
+		
+	}
 
 	///////////////////////////
 	//// GETTERS & SETTERS ////

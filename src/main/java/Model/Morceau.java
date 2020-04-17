@@ -15,12 +15,17 @@ public class Morceau {
 	private Album albumMorceau;
 	private Artiste artisteMorceau;
 	private Set<Genre> genresMorceau = new HashSet<Genre>();
+	private Set<Playlist> playlistsMorceau = new HashSet<Playlist>();
 	private String cheminMorceau;
 	private int anneeMorceau;
 	private String parolesMorceau;
 	private String auteurCompositeurMorceau;
 	private String commentaireMorceau;
 
+	
+	public Morceau(){
+		
+	}
 	/*
 	 * Ici on construit un morceau. On reçoit un type File, qu'on passe en
 	 * MP3File, si cela soulève une exception alors on sait que ce n'est pas un
@@ -225,11 +230,31 @@ public class Morceau {
 	public void setCommentaireMorceau(String commentaireMorceau) {
 		this.commentaireMorceau = commentaireMorceau;
 	}
+	
+	public Set<Playlist> getPlaylistsMorceau() {
+		return playlistsMorceau;
+	}
+	public void setPlaylistsMorceau(Set<Playlist> playlistsMorceau) {
+		this.playlistsMorceau = playlistsMorceau;
+	}
+	
 
 	////////////////////////////////
 	/// AJOUTER RETIRER PRESENCE ///
 	////////////////////////////////
+	
+	public void ajoutPlaylistMorceau(Playlist p) {
+		this.playlistsMorceau.add(p);
+	}
 
+	public boolean presencePlaylistMorceau(Playlist p) {
+		return this.genresMorceau.contains(p);
+	}
+
+	public void retirerPlaylistMorceau(Playlist p) {
+		this.genresMorceau.remove(p);
+	}
+	
 	public void ajoutGenreMorceau(Genre g) {
 		this.genresMorceau.add(g);
 	}

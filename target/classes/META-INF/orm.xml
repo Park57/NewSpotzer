@@ -3,7 +3,6 @@
 	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
 	<package>Model</package>
-	<!-- 
 	<entity class="Model.Genre">
 		<table name="genre" />
 		<attributes>
@@ -11,9 +10,63 @@
 				<column name="codeGenre" />
 				<generated-value strategy="IDENTITY" />
 			</id>
-			<basic name="libelle">
+			<basic name="libelleGenre">
 				<column name="libelleGenre" />
 			</basic>
+		</attributes>
+	</entity>
+	<entity class="Model.Morceau">
+		<table name="morceau" />
+		<attributes>
+			<id name="codeMorceau">
+				<column name="codeMorceau" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="titreMorceau">
+				<column name="titreMorceau" />
+			</basic>
+			<basic name="albumMorceau">
+				<column name="codeAlbum" />
+			</basic>
+			<basic name="artisteMorceau">
+				<column name="codeArtiste" />
+			</basic>
+			<basic name="genresMorceau">
+				<column name="codeGenre" />
+			</basic>
+			<basic name="cheminMorceau">
+				<column name="cheminMorceau" />
+			</basic>
+			<basic name="anneeMorceau">
+				<column name="anneeMorceau" />
+			</basic>
+			<basic name="parolesMorceau">
+				<column name="parolesMorceau" />
+			</basic>
+			<basic name="auteurCompositeurMorceau">
+				<column name="auteurCompositeurMorceau" />
+			</basic>
+			<basic name="commentaireMorceau">
+				<column name="commentaireMorceau" />
+			</basic>
+			<many-to-one name="artisteMorceau" target-entity="Model.Artiste">
+				<join-column name="codeArtiste" referenced-column-name="codeArtiste" />
+			</many-to-one>
+			<many-to-one name="albumMorceau" target-entity="Model.Album">
+				<join-column name="codeAlbum" referenced-column-name="codeAlbum"/>
+			</many-to-one>	
+			<many-to-many name="genresMorceau" target-entity="Model.Genre">
+				<join-table name="detenir">
+					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
+					<inverse-join-column name="codeGenre" referenced-column-name="codeGenre" />
+				</join-table>
+			</many-to-many>
+			<many-to-many name="playlistsMorceau" target-entity="Playlist">
+				<join-table name="appartenir">
+					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
+					<inverse-join-column name="codePlaylist" referenced-column-name="codePlaylist" />
+				</join-table>
+			</many-to-many>
 		</attributes>
 	</entity>
 	<entity class="Model.Artiste">
@@ -26,6 +79,7 @@
 			<basic name="nomArtiste">
 				<column name="nomArtiste" />
 			</basic>
+			<one-to-many name="morceauxArtiste" target-entity="Model.Morceau" mapped-by="artisteMorceau"/>
 		</attributes>
 	</entity>
 	<entity class="Model.Album">
@@ -36,11 +90,33 @@
 				<generated-value strategy="IDENTITY" />
 			</id>
 			<basic name="titreAlbum">
-				<column name="nomAlbum" />
+				<column name="titreAlbum" />
 			</basic>
-			<basic name="annee">
+			<basic name="anneeAlbum">
 				<column name="anneeAlbum" />
 			</basic>
+		<one-to-many name="morceauxAlbum" target-entity="Model.Morceau" mapped-by="albumMorceau"/>
+		</attributes>
+	</entity>
+	<entity class="Model.Playlist">
+		<table name="playlist" />
+		<attributes>
+			<id name="codePlaylist">
+				<column name="codePlaylist" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="titrePlaylist">
+				<column name="titrePlaylist" />
+			</basic>
+			<basic name="descriptionPlaylist">
+				<column name="descriptionPlaylist" />
+			</basic>
+			<basic name="tempsPlaylist">
+				<column name="tempsPlaylist" />
+			</basic>
+			<many-to-one name="createurPlaylist" target-entity="Model.Utilisateur">
+				<join-column name="codeUtilisateur" referenced-column-name="codeUtilisateur" />
+			</many-to-one>
 		</attributes>
 	</entity>
 	<entity class="Model.Utilisateur">
@@ -50,52 +126,20 @@
 				<column name="codeUtilisateur" />
 				<generated-value strategy="IDENTITY" />
 			</id>
-			<basic name="nom">
-				<column name="nom" />
+			<basic name="nomUtilisateur">
+				<column name="nomUtilisateur" />
 			</basic>
-			<basic name="prenom">
-				<column name="prenom" />
+			<basic name="prenomUtilisateur">
+				<column name="prenomUtilisateur" />
 			</basic>
-			<basic name="pseudo">
-				<column name="pseudo" />
+			<basic name="pseudoUtilisateur">
+				<column name="pseudoUtilisateur" />
 			</basic>
-			<basic name="motDePasse">
-				<column name="motDePasse" />
+			<basic name="passwordUtilisateur">
+				<column name="motDePasseUtilisateur" />
 			</basic>
+			<one-to-many name="playlistsUtilisateur" target-entity="Model.Playlist" mapped-by="createurPlaylist"/>
 		</attributes>
 	</entity>
-	<entity class="Model.Morceau">
-		<table name="morceau" />
-		<attributes>
-			<id name="id">
-				<column name="codeMorceau" />
-				<generated-value strategy="IDENTITY" />
-			</id>
-			<basic name="titre">
-				<column name="titreMorceau" />
-			</basic>
-			<basic name="album">
-				<column name="codeAlbum" />
-			</basic>
-			<basic name="artiste">
-				<column name="codeArtiste" />
-			</basic>
-			<basic name="genre">
-				<column name="codeGenre" />
-			</basic>
-			<many-to-many name="artiste" target-entity="Artiste">
-				<join-table name="chanter">
-					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
-					<inverse-join-column name="codeArtiste" referenced-column-name="codeArtiste" />
-				</join-table>
-			</many-to-many>
-			<many-to-many name="genre" target-entity="Genre">
-				<join-table name="detenir">
-					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
-					<inverse-join-column name="codeGenre" referenced-column-name="codeGenre" />
-				</join-table>
-			</many-to-many>
-		</attributes>
-	</entity>
-	-->
+	
 </entity-mappings>

@@ -6,6 +6,7 @@ import java.util.Set;
 public class Playlist {
 	private int codePlaylist;
 	private Utilisateur createurPlaylist;
+	private int tempsPlaylist;
 	private Set<Morceau> morceauxPlaylist = new HashSet<Morceau>();
 	private String titrePlaylist;
 	private String descriptionPlaylist;
@@ -19,6 +20,9 @@ public class Playlist {
 		this.titrePlaylist = titrePlaylist;
 		this.descriptionPlaylist = descriptionPlaylist;
 	}
+	public Playlist(){
+		
+	}
 
 
 	
@@ -26,10 +30,18 @@ public class Playlist {
 	//// GETTERS & SETTERS ////
 	///////////////////////////
 	
+	
+	
 	public int getCodePlaylist() {
 		return codePlaylist;
 	}
 
+	public int getTempsPlaylist() {
+		return tempsPlaylist;
+	}
+	public void setTempsPlaylist(int tempsPlaylist) {
+		this.tempsPlaylist = tempsPlaylist;
+	}
 	public Utilisateur getCreateurPlaylist() {
 		return createurPlaylist;
 	}
@@ -61,7 +73,8 @@ public class Playlist {
 	////////////////////////////////
 	/// AJOUTER RETIRER PRESENCE ///
 	////////////////////////////////
-	
+
+
 	public void ajoutMorceauPlaylist(Morceau m) {
 		this.morceauxPlaylist.add(m);
 	}

@@ -15,6 +15,10 @@ public class Genre implements Serializable {
 		if (libelleGenre != null)
 			this.libelleGenre = libelleGenre;
 	}
+	
+	public Genre(){
+		
+	}
 
 	public int getCodeGenre() {
 		return codeGenre;
