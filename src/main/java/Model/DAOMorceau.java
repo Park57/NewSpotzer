@@ -1,18 +1,18 @@
 package Model;
 
-import java.util.List;
+import java.util.Set;
 
 public interface DAOMorceau {
-	Morceau get(int code);
 	
-	List<Morceau> getAvecTitre(String titre);
-	List<Morceau> getAvecAlbum(Album album);
-	List<Morceau> getAvecArtiste(Artiste artiste);
-	List<Morceau> getAvecGenre(Genre genre);
-	
+	Morceau getAvecCode(int code);
+	Set<Morceau> getAvecTitre(String titre);
+	Set<Morceau> getAvecAlbum(Album album);
+	Set<Morceau> getAvecNomAlbum(String nA);
+	Set<Morceau> getAvecArtiste(Artiste artiste);
+	Set<Morceau> getAvecNomArtiste(String nA);
+	Set<Morceau> getAvecGenre(Genre genre);
+	Set<Morceau> getAvecAnnee(int annee);
+	Set<Morceau> getAvecPlaylist(Playlist pl);
 	void save(Morceau morceau);
-	List<Morceau> loadAll();
-	
-	//get avec artiste qui ressort tous les morceaux de l'artiste
-	//get avec album
+	Set<Morceau> loadAll();
 }

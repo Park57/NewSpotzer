@@ -1,11 +1,12 @@
 package Model;
 
-import java.util.List;
+import java.util.Set;
 
 public interface DAOGenre {
-	Genre get(int code);
-	Genre get(String libelle);
+	Genre getAvecCode(int code);
+	Genre getAvecLibelle(String libelle);
+	Set<Genre> getAvecMorceau(Morceau m);
 	void save(Genre Genre);
-	List<Genre> loadAll();
+	Set<Genre> loadAll();
 	
 }
