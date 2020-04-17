@@ -1,6 +1,7 @@
 package Model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DAOUtilisateurJPA extends DAOJPA implements DAOUtilisateur {
 
@@ -10,48 +11,47 @@ public class DAOUtilisateurJPA extends DAOJPA implements DAOUtilisateur {
 	}
 
 	@Override
-	public Utilisateur get(int codeUtilisateur) {
-		Utilisateur Utilisateur = DAOJPA.getManager().find(Utilisateur.class, codeUtilisateur);
+	public Utilisateur getAvecCode(int code) {
+		Utilisateur Utilisateur = DAOJPA.getManager().find(Utilisateur.class, code);
 		return Utilisateur;
 	}
 
 	@Override
-	public Utilisateur getAvecPseudo(String pseudo) {
-		List<Utilisateur> listeUtilisateur = DAOJPA.getManager()
+	public Set<Utilisateur> getAvecPseudo(String pseudo) {
+		Set<Utilisateur> listeUtilisateur = new HashSet<Utilisateur>(DAOJPA.getManager()
 				.createQuery("SELECT u FROM Utilisateur u WHERE u.pseudo LIKE ?1", Utilisateur.class)
-				.setParameter(1, "%" + pseudo + "%").getResultList();
-		if (listeUtilisateur.size() == 0)
-			return null;
-		else
-			return listeUtilisateur.get(0);
+				.setParameter(1, "%" + pseudo + "%").getResultList());
+		return listeUtilisateur;
 	}
 
 	@Override
-	public List<Utilisateur> getAvecPrenom(String prenom) {
-		List<Utilisateur> listeUtilisateurs = DAOJPA.getManager()
+	public Set<Utilisateur> getAvecPrenom(String prenom) {
+		Set<Utilisateur> listeUtilisateur = new HashSet<Utilisateur>(DAOJPA.getManager()
 				.createQuery("SELECT u FROM Utilisateur u WHERE u.prenom LIKE ?1", Utilisateur.class)
-				.setParameter(1, "%" + prenom + "%").getResultList();
-		return listeUtilisateurs;
+				.setParameter(1, "%" + prenom + "%").getResultList());
+		return listeUtilisateur;
 	}
 
 	@Override
-	public List<Utilisateur> getAvecNom(String nom) {
-		List<Utilisateur> listeUtilisateurs = DAOJPA.getManager()
+	public Set<Utilisateur> getAvecNom(String nom) {
+		Set<Utilisateur> listeUtilisateur = new HashSet<Utilisateur>(DAOJPA.getManager()
 				.createQuery("SELECT u FROM Utilisateur u WHERE u.nom LIKE ?1", Utilisateur.class)
-				.setParameter(1, "%" + nom + "%").getResultList();
-		return listeUtilisateurs;
+				.setParameter(1, "%" + nom + "%").getResultList());
+		return listeUtilisateur;
 	}
-
+	
+	@Override
+	public Utilisateur getAvecPlaylist(Playlist p) {
+		// TODO
+		return null;
+	}
+	
 	static public DAOUtilisateur getInstance() {
 		if (instance == null)
 			instance = new DAOUtilisateurJPA();
 		return instance;
 	}
 
-	/*
-	 * @Override public Utilisateur get(String pseudo) { Utilisateur Utilisateur =
-	 * DAOJPA.getManager().find(Utilisateur.class, pseudo); return Utilisateur; }
-	 */
 
 	@Override
 	public void save(Utilisateur Utilisateur) {
@@ -60,8 +60,8 @@ public class DAOUtilisateurJPA extends DAOJPA implements DAOUtilisateur {
 	}
 
 	@Override
-	public List<Utilisateur> loadAll() {
-		return DAOJPA.getManager().createQuery("SELECT u FROM Utilisateur u", Utilisateur.class).getResultList();
+	public Set<Utilisateur> loadAll() {
+		return new HashSet<Utilisateur>(DAOJPA.getManager().createQuery("SELECT u FROM Utilisateur u", Utilisateur.class).getResultList());
 	}
 
 }

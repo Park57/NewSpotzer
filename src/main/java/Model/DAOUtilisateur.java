@@ -1,21 +1,13 @@
 package Model;
 
-import java.util.List;
+import java.util.Set;
 
 public interface DAOUtilisateur {
-	Utilisateur get(int codeUtilisateur);
-	
-	Utilisateur getAvecPseudo(String pseudo);
-	
-	List<Utilisateur> getAvecNom(String nom);
-	
-	List<Utilisateur> getAvecPrenom(String prenom);
-	
-	//Utilisateur get(String pseudo);
-
-	// Album get(Morceau morceau); A FAIRE EN CASCADE
-
+	Utilisateur getAvecCode(int code);
+	Set<Utilisateur> getAvecPseudo(String pseudo);
+	Set<Utilisateur> getAvecNom(String nom);
+	Set<Utilisateur> getAvecPrenom(String prenom);
+	Utilisateur getAvecPlaylist(Playlist pl);
 	void save(Utilisateur utilisateur);
-
-	List<Utilisateur> loadAll();
+	Set<Utilisateur> loadAll();
 }

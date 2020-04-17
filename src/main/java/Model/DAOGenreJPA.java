@@ -1,6 +1,8 @@
 package Model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DAOGenreJPA extends DAOJPA implements DAOGenre {
 
@@ -16,20 +18,27 @@ public class DAOGenreJPA extends DAOJPA implements DAOGenre {
 	}
 
 	@Override
-	public Genre get(int code) {
+	public Genre getAvecCode(int code) {
 		Genre Genre = DAOJPA.getManager().find(Genre.class, code);
 		return Genre;
 	}
 
 	@Override
-	public Genre get(String libelle) {
-		List<Genre> listGenre = DAOJPA.getManager()
+	public Genre getAvecLibelle(String libelle) {
+		List <Genre> listGenre = DAOJPA.getManager()
 				.createQuery("SELECT g FROM Genre g WHERE g.libelle LIKE ?1", Genre.class)
 				.setParameter(1, "%" + libelle + "%").getResultList();
 		if (listGenre.size() == 0)
 			return null;
 		else
 			return listGenre.get(0);
+	}
+	
+	@Override
+	public Set<Genre> getAvecMorceau(Morceau m) {
+		// TODO
+		//pas sur de l'importance de cette méthode....
+		return null;
 	}
 
 	@Override
@@ -40,8 +49,8 @@ public class DAOGenreJPA extends DAOJPA implements DAOGenre {
 	}
 
 	@Override
-	public List<Genre> loadAll() {
-		return DAOJPA.getManager().createQuery("SELECT g FROM Genre g", Genre.class).getResultList();
+	public Set<Genre> loadAll() {
+		return new HashSet<Genre>(DAOJPA.getManager().createQuery("SELECT g FROM Genre g", Genre.class).getResultList());
 	}
 
 }

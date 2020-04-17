@@ -1,10 +1,12 @@
 package Model;
 
-import java.util.List;
+import java.util.Set;
 
 public interface DAOArtiste {
-	Artiste get(int code);
-	List<Artiste> get(String nom);
+	Artiste getAvecCode(int code);
+	Set<Artiste> getAvecNom(String nom);
+	Artiste getAvecMorceau(Morceau m);
+	Set<Artiste> getAvecTitreMorceau(String tM);
 	void save(Artiste artiste);
-	List<Artiste> loadAll();
+	Set<Artiste> loadAll();
 }

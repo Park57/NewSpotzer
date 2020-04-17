@@ -1,19 +1,21 @@
 package Model;
 
-import java.util.List;
+import java.util.Set;
 
 public interface DAOAlbum {
 
-	Album get(int code);
+	Album getAvecCode(int code);
 
-	List<Album> get(String nomAlbum);
+	Set<Album> getAvecTitre(String nomAlbum);
 	
-	List<Album> getAvecAnnee(int annee);
+	Set<Album> getAvecAnnee(int annee);
 	
-	//Album get(Morceau morceau); A FAIRE EN CASCADE 
+	Album getAvecMorceau(Morceau morceau);
+	
+	Set<Album> getAvecTitreMorceau(String tM);
 
 	void save(Album Album);
 
-	List<Album> loadAll();
+	Set<Album> loadAll();
 
 }
