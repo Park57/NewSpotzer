@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
 	<package>Model</package>
-	<entity class="Model.Genre">
+	<entity class="Model.Genre" access="FIELD">
 		<table name="genre" />
 		<attributes>
 			<id name="codeGenre">
@@ -56,7 +56,7 @@
 				<join-column name="codeAlbum" referenced-column-name="codeAlbum"/>
 			</many-to-one>	
 			<many-to-many name="genresMorceau" target-entity="Model.Genre">
-				<join-table name="detenir">
+				<join-table name="genre_morceau">
 					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
 					<inverse-join-column name="codeGenre" referenced-column-name="codeGenre" />
 				</join-table>

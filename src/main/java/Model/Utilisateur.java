@@ -13,10 +13,10 @@ public class Utilisateur {
 	private Set<Playlist> playlistsUtilisateur = new HashSet<Playlist>();
 	
 	
-	public Utilisateur(int codeUtilisateur, String nomUtilisateur, String prenomUtilisateur, String pseudoUtilisateur,
+	public Utilisateur( String nomUtilisateur, String prenomUtilisateur, String pseudoUtilisateur,
 			String passwordUtilisateur) {
 		super();
-		this.codeUtilisateur = codeUtilisateur;
+		this.codeUtilisateur = -1;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
 		this.pseudoUtilisateur = pseudoUtilisateur;

@@ -26,8 +26,8 @@ public class DAOGenreJPA extends DAOJPA implements DAOGenre {
 	@Override
 	public Genre getAvecLibelle(String libelle) {
 		List <Genre> listGenre = DAOJPA.getManager()
-				.createQuery("SELECT g FROM Genre g WHERE g.libelle LIKE ?1", Genre.class)
-				.setParameter(1, "%" + libelle + "%").getResultList();
+				.createQuery("SELECT g FROM Genre g WHERE g.libelleGenre = :libelle", Genre.class)
+				.setParameter("libelle",libelle).getResultList();
 		if (listGenre.size() == 0)
 			return null;
 		else

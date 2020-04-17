@@ -50,15 +50,15 @@ public class DAOJPA {
 
 	public static void viderBase() // Pra6que pour remeVre � 0 la base avant des tests
 	{
-		getManager().createQuery("DELETE FROM Album").executeUpdate();
+		/*getManager().createQuery("DELETE FROM Album").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE album AUTO_INCREMENT = 1").executeUpdate();
 		getManager().createQuery("DELETE FROM Artiste").executeUpdate();
-		getManager().createNativeQuery("ALTER TABLE artiste AUTO_INCREMENT = 1").executeUpdate();
+		getManager().createNativeQuery("ALTER TABLE artiste AUTO_INCREMENT = 1").executeUpdate();*/
 		getManager().createQuery("DELETE FROM Genre").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE genre AUTO_INCREMENT = 1").executeUpdate();
-		getManager().createQuery("DELETE FROM Utilisateur").executeUpdate();
+		/*getManager().createQuery("DELETE FROM Utilisateur").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE utilisateur AUTO_INCREMENT = 1").executeUpdate();
 		getManager().createQuery("DELETE FROM Album").executeUpdate();
-		getManager().createNativeQuery("ALTER TABLE album AUTO_INCREMENT = 1").executeUpdate();
+		getManager().createNativeQuery("ALTER TABLE album AUTO_INCREMENT = 1").executeUpdate();*/
 	}
 }/* Fin de la classe DAOJPA */

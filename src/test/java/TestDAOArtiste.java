@@ -2,7 +2,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +18,7 @@ import Model.DAOJPA;
 public class TestDAOArtiste {
 	@Before
 	public void init() {
-		DAOJPA.viderBase();
+		//DAOJPA.viderBase();
 	}
 
 	@Test
@@ -28,7 +30,7 @@ public class TestDAOArtiste {
 
 		DAOArtiste dao = DAOArtisteJPA.getInstance();
 		/** * Pr�-conditions */
-		List<Artiste> listeArtiste = dao.loadAll();
+		Set<Artiste> listeArtiste = dao.loadAll();
 
 		assertEquals(0, listeArtiste.size());
 		assertEquals(-1, rihanna.getCodeArtiste());
@@ -41,17 +43,18 @@ public class TestDAOArtiste {
 		listeArtiste = dao.loadAll();
 		assertEquals(1, listeArtiste.size());
 		assertTrue(rihanna.getCodeArtiste() != -1);
-		Artiste rihanna2 = dao.get(1); // recherche par code
+		Artiste rihanna2 = dao.getAvecCode(1); // recherche par code
 
 		assertEquals(rihanna, rihanna2);
 		
-		List<Artiste> listRihanna3 = dao.get("Rihanna"); // recherche par nom
-		assertEquals(rihanna, listRihanna3.get(0));
+		Set<Artiste> listRihanna3 = dao.getAvecNom("Rihanna"); // recherche par nom
+		List<Artiste> liste = new ArrayList<Artiste>(listRihanna3);
+		assertEquals(rihanna, liste.get(0));
 		dao.save(eminem);
 		dao.save(pitbull);
 		assertEquals(3, dao.loadAll().size());
 		/** * On v�rifie quand m�me que le DAO ne * trouve pas ce qui n'existe pas */
-		List<Artiste> bidon = dao.get("Bidon");
+		Set<Artiste> bidon = dao.getAvecNom("Bidon");
 		assertNull(bidon);
 	}
 	/* Fin de Test */

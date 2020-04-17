@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,7 @@ import Model.Genre;
 public class TestDAOGenre {
 	@Before
 	public void init() {
-		DAOJPA.viderBase();
+		//DAOJPA.viderBase();
 	}
 
 	@Test
@@ -29,7 +30,8 @@ public class TestDAOGenre {
 
 		DAOGenre dao = DAOGenreJPA.getInstance();
 		/** * Pr�-conditions */
-		List<Genre> listeGenre = dao.loadAll();
+		System.out.println("Je suis avant loadAll");
+		Set<Genre> listeGenre = dao.loadAll();
 
 		assertEquals(0, listeGenre.size());
 		assertEquals(-1, rock.getCodeGenre());
@@ -42,7 +44,7 @@ public class TestDAOGenre {
 		listeGenre = dao.loadAll();
 		assertEquals(1, listeGenre.size());
 		assertTrue(rock.getCodeGenre() != -1);
-		Genre rock2 = dao.get(1); // recherche par code
+		Genre rock2 = dao.getAvecCode(1); // recherche par code
 		
 		System.out.println("Libelle de rock : "+rock.getLibelle());
 		System.out.println("Code de rock : "+rock.getCodeGenre());
@@ -50,13 +52,13 @@ public class TestDAOGenre {
 		System.out.println("Code de rock2 : "+rock2.getCodeGenre());
 		assertEquals(rock, rock2);
 		
-		Genre rock3 = dao.get("Rock"); // recherche par libell�
+		Genre rock3 = dao.getAvecLibelle("Rock"); // recherche par libelle
 		assertEquals(rock, rock3);
 		dao.save(jazz);
 		dao.save(pop);
 		assertEquals(3, dao.loadAll().size());
-		/** * On v�rifie quand m�me que le DAO ne * trouve pas ce qui n'existe pas */
-		Genre bidon = dao.get("Bidon");
+		/** * On verifie quand m�me que le DAO ne * trouve pas ce qui n'existe pas */
+		Genre bidon = dao.getAvecLibelle("Bidon");
 		assertNull(bidon);
 	}
 	/* Fin de Test */

@@ -35,7 +35,7 @@ public class DAOAlbumJPA extends DAOJPA implements DAOAlbum {
 	@Override
 	public Set<Album> getAvecAnnee(int annee){
         Set<Album> listAlbum = new HashSet<Album>(DAOJPA.getManager()
-                .createQuery("SELECT a FROM Album a WHERE a.annee LIKE ?1", Album.class)
+                .createQuery("SELECT a FROM Album a WHERE a.anneeAlbum LIKE ?1", Album.class)
                 .setParameter(1, annee).getResultList());
         if (listAlbum.size() == 0)
             return null;

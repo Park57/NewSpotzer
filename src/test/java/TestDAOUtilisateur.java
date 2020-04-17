@@ -2,7 +2,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +17,7 @@ import Model.Utilisateur;
 public class TestDAOUtilisateur {
     @Before
     public void init() {
-        DAOJPA.viderBase();
+        //DAOJPA.viderBase();
     }
 
     @Test
@@ -26,15 +28,9 @@ public class TestDAOUtilisateur {
 
         DAOUtilisateur dao = DAOUtilisateurJPA.getInstance();
         /** * Pr�-conditions */
-        List<Utilisateur> listeUtilisateurs = dao.loadAll();
+        Set<Utilisateur> listeUtilisateurs = dao.loadAll();
 
         assertEquals(0, listeUtilisateurs.size());
-
-        assertEquals(-1, romain.getCodeUtilisateur());
-        assertEquals("Milk", romain.getPseudo());
-        assertEquals("Romain", romain.getPrenom());
-        assertEquals("Caruanavirus", romain.getNom());
-        assertEquals("1234", romain.getMotDePasse());
 
         dao.save(romain);
         /* State = managed */
@@ -42,24 +38,27 @@ public class TestDAOUtilisateur {
         listeUtilisateurs = dao.loadAll();
         assertEquals(1, listeUtilisateurs.size());
         assertTrue(romain.getCodeUtilisateur() != -1);
-        Utilisateur romain2 = dao.get(1); // recherche par code
+        Utilisateur romain2 = dao.getAvecCode(1); // recherche par code
         
         assertEquals(romain, romain2);
         
-        Utilisateur romain3 = dao.getAvecPseudo("Milk"); // recherche par libell�
-        assertEquals(romain, romain3);
-
-        List<Utilisateur> romain4 = dao.getAvecNom("Caruanavirus");
-        assertEquals(romain, romain4.get(0));
+        Set<Utilisateur> romain3 = dao.getAvecPseudo("Milk"); // recherche par libell�
+        ArrayList<Utilisateur> liste = new ArrayList<Utilisateur>(romain3);
+        assertEquals(romain, liste.get(0));
         
-        List<Utilisateur> romain5 = dao.getAvecPrenom("Romain");
-        assertEquals(romain, romain5.get(0));
+        Set<Utilisateur> romain4 = dao.getAvecNom("Caruanavirus");
+        liste = new ArrayList<Utilisateur>(romain4);
+        assertEquals(romain, liste.get(0));
+        
+        Set<Utilisateur> romain5 = dao.getAvecPrenom("Romain");
+        liste = new ArrayList<Utilisateur>(romain5);
+        assertEquals(romain, liste.get(0));
         
         dao.save(thomas);
         dao.save(vincent);
         assertEquals(3, dao.loadAll().size());
         /** * On v�rifie quand m�me que le DAO ne * trouve pas ce qui n'existe pas */
-        Utilisateur bidon = dao.getAvecPseudo("Bidon");
+        Set<Utilisateur> bidon = dao.getAvecPseudo("Bidon");
         assertNull(bidon);
     }
     /* Fin de Test */
