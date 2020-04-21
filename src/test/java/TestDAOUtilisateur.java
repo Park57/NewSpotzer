@@ -17,7 +17,7 @@ import Model.Utilisateur;
 public class TestDAOUtilisateur {
     @Before
     public void init() {
-        //DAOJPA.viderBase();
+        DAOJPA.viderBase();
     }
 
     @Test

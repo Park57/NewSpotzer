@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public interface DAOGenre {
@@ -7,6 +8,6 @@ public interface DAOGenre {
 	Genre getAvecLibelle(String libelle);
 	Set<Genre> getAvecMorceau(Morceau m);
 	void save(Genre Genre);
-	Set<Genre> loadAll();
+	ArrayList<Genre> loadAll();
 	
 }

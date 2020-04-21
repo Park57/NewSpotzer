@@ -1,5 +1,13 @@
 package Model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -47,18 +55,48 @@ public class DAOJPA {
 		emf.close();
 		emf = null;
 	}
+	
+	public static ArrayList<String> creerGenre(){
+		FileReader f;
+		ArrayList<String> a = new ArrayList<String>();
+		try {
+			
+			f = new FileReader("./genres.txt");
+			BufferedReader r = new BufferedReader(f);
+			String line = r.readLine();
+			while(line != null){
+				System.out.println(line);
+				line.trim();
+				a.add(line);
+				//Ajout à la base de donnees
+				DAOGenreJPA.getInstance().save(new Genre(line));
+				line = r.readLine();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(IOException e){
+			
+		}
+		return a;
+		
+	}
 
 	public static void viderBase() // Pra6que pour remeVre � 0 la base avant des tests
 	{
-		/*getManager().createQuery("DELETE FROM Album").executeUpdate();
+		getManager().createQuery("DELETE FROM Morceau").executeUpdate();
+		getManager().createNativeQuery("ALTER TABLE morceau AUTO_INCREMENT = 1").executeUpdate();
+		getManager().createQuery("DELETE FROM Album").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE album AUTO_INCREMENT = 1").executeUpdate();
 		getManager().createQuery("DELETE FROM Artiste").executeUpdate();
-		getManager().createNativeQuery("ALTER TABLE artiste AUTO_INCREMENT = 1").executeUpdate();*/
+		getManager().createNativeQuery("ALTER TABLE artiste AUTO_INCREMENT = 1").executeUpdate();
 		getManager().createQuery("DELETE FROM Genre").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE genre AUTO_INCREMENT = 1").executeUpdate();
-		/*getManager().createQuery("DELETE FROM Utilisateur").executeUpdate();
+		getManager().createQuery("DELETE FROM Utilisateur").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE utilisateur AUTO_INCREMENT = 1").executeUpdate();
-		getManager().createQuery("DELETE FROM Album").executeUpdate();
-		getManager().createNativeQuery("ALTER TABLE album AUTO_INCREMENT = 1").executeUpdate();*/
+		
 	}
+	
+	
+	
 }/* Fin de la classe DAOJPA */

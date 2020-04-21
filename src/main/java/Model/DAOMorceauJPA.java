@@ -25,7 +25,7 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 	@Override
 	public Set<Morceau> getAvecTitre(String titre) {
 		Set<Morceau> listMorceau = new HashSet<Morceau>(DAOJPA.getManager()
-				.createQuery("SELECT m FROM Morceau m WHERE m.titre LIKE ?1", Morceau.class)
+				.createQuery("SELECT m FROM Morceau m WHERE m.titreMorceau LIKE ?1", Morceau.class)
 				.setParameter(1, "%" + titre + "%").getResultList());
 		return listMorceau;
 	}
@@ -56,8 +56,10 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 
 	@Override
 	public Set<Morceau> getAvecGenre(Genre genre) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Morceau> listMorceau = new HashSet<Morceau>(DAOJPA.getManager()
+				.createQuery("SELECT m FROM Morceau m WHERE m.codeMorceau = (SELECT g FROM genre_morceau g WHERE g.codeGenre = (SELECT ge FROM Genre ge WHERE g.codeGenre = ?1))", Morceau.class)
+				.setParameter(1, genre.getCodeGenre()).getResultList());
+		return listMorceau;
 	}
 
 	@Override

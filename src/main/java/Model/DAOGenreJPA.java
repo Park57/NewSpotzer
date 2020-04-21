@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,8 +50,8 @@ public class DAOGenreJPA extends DAOJPA implements DAOGenre {
 	}
 
 	@Override
-	public Set<Genre> loadAll() {
-		return new HashSet<Genre>(DAOJPA.getManager().createQuery("SELECT g FROM Genre g", Genre.class).getResultList());
+	public ArrayList<Genre> loadAll() {
+		return new ArrayList<Genre>(DAOJPA.getManager().createQuery("SELECT g FROM Genre g", Genre.class).getResultList());
 	}
 
 }

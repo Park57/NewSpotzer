@@ -18,7 +18,7 @@ import Model.DAOJPA;
 public class TestDAOArtiste {
 	@Before
 	public void init() {
-		//DAOJPA.viderBase();
+		DAOJPA.viderBase();
 	}
 
 	@Test

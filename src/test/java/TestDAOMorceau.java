@@ -12,6 +12,7 @@ import Model.Album;
 import Model.Artiste;
 import Model.DAOArtiste;
 import Model.DAOArtisteJPA;
+import Model.DAOJPA;
 import Model.DAOMorceau;
 import Model.DAOMorceauJPA;
 import Model.Genre;
@@ -20,7 +21,7 @@ import Model.Morceau;
 public class TestDAOMorceau {
     @Before
     public void init() {
-        //DAOJPA.viderBase();
+        DAOJPA.viderBase();
     }
 
     @Test
