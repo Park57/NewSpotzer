@@ -27,8 +27,6 @@ public class TestDAOGenre {
 	@Test
 	public void test() {
 
-		DAOGenre dao = DAOGenreJPA.getInstance();
-		/** * Pr�-conditions */
 	}
 	/* Fin de Test */
 } /* Fin de TestDAOGenre */

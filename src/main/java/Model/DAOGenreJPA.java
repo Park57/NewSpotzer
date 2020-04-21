@@ -18,30 +18,6 @@ public class DAOGenreJPA extends DAOJPA implements DAOGenre {
 		return instance;
 	}
 
-	@Override
-	public Genre getAvecCode(int code) {
-		Genre Genre = DAOJPA.getManager().find(Genre.class, code);
-		return Genre;
-	}
-
-	@Override
-	public Genre getAvecLibelle(String libelle) {
-		List <Genre> listGenre = DAOJPA.getManager()
-				.createQuery("SELECT g FROM Genre g WHERE g.libelleGenre = :libelle", Genre.class)
-				.setParameter("libelle",libelle).getResultList();
-		if (listGenre.size() == 0)
-			return null;
-		else
-			return listGenre.get(0);
-	}
-
-	
-	@Override
-	public Set<Genre> getAvecMorceau(Morceau m) {
-		// TODO
-		//pas sur de l'importance de cette méthode....
-		return null;
-	}
 
 	@Override
 	public void save(Genre Genre) {

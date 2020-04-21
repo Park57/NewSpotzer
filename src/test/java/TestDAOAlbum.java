@@ -3,6 +3,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,40 +26,16 @@ public class TestDAOAlbum {
         Album slipknot = new Album("We are not",1687);/* State = new */
         Album skillet = new Album("Victorious",1745);
         Album amonamarth = new Album("Berserker",2038);
+        
+        Set<Album> listeAlb = new HashSet<Album>();
+        listeAlb.add(slipknot);
+        listeAlb.add(skillet);
+        listeAlb.add(amonamarth);
 
         DAOAlbum dao = DAOAlbumJPA.getInstance();
-        /** * Pr�-conditions */
-        Set<Album> listeAlbum = dao.loadAll();
+        
 
-        assertEquals(0, listeAlbum.size());
-        assertEquals(-1, slipknot.getCodeAlbum());
-
-        assertEquals("We are not", slipknot.getTitreAlbum());
-
-        dao.save(slipknot);
-        /* State = managed */
-        /** * Quelques post-conditions dans le cas g�n�ral */
-        listeAlbum = dao.loadAll();
-        assertEquals(1, listeAlbum.size());
-        assertTrue(slipknot.getCodeAlbum() != -1);
-        Album slipknot2 = dao.getAvecCode(1); // recherche par code
-        
-        assertEquals(slipknot, slipknot2);
-        
-        Set<Album> slipknot3 = dao.getAvecTitre("We are not"); // recherche par libell�
-        ArrayList<Album> liste = new ArrayList<Album>(slipknot3);
-        assertEquals(slipknot, liste.get(0));
-        
-        Set<Album> slipknot4 = dao.getAvecAnnee(1687); // recherche par libell�
-        liste = new ArrayList<Album>(slipknot4);
-        assertEquals(slipknot, liste.get(0));
-        
-        dao.save(skillet);
-        dao.save(amonamarth);
-        assertEquals(3, dao.loadAll().size());
-        /** * On v�rifie quand m�me que le DAO ne * trouve pas ce qui n'existe pas */
-        Set<Album> bidon = dao.getAvecTitre("Bidon");
-        assertNull(bidon);
+       dao.saveAll(listeAlb);
     }
     /* Fin de Test */
-} /* Fin de TestDAOGenre */
+} /* Fin de TestDAOAlbum */

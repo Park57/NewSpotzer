@@ -18,30 +18,10 @@ public class DAOPlaylistJPA extends DAOJPA implements DAOPlaylist {
 	}
 
 	@Override
-	public Playlist getAvecCode(int code) {
-		Playlist p = DAOJPA.getManager().find(Playlist.class, code);
-		return p;
-	}
-
-	@Override
-	public Set<Playlist> getAvecUtilisateur(Utilisateur u){
-		//TODO
-		return null;
-	}
-
-	@Override
-	public Set<Playlist> getAvecMorceau(Morceau m) {
-		//TODO
-		return null;
-	}
-
-	@Override
-	public Set<Playlist> getAvecTitre(String titre) {
-		Set<Playlist> lp = new HashSet<Playlist> (DAOJPA.getManager()
-		.createQuery("SELECT p FROM Playlist p WHERE p.titrePlaylist LIKE ?1", Playlist.class)
-		.setParameter(1, "%" + titre + "%").getResultList());
-
-		return lp;
+	public void saveAll(Set<Playlist> listeP) {
+		for(Playlist p : listeP) {
+			save(p);
+		}
 	}
 
 	@Override

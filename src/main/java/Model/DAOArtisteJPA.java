@@ -17,33 +17,10 @@ public class DAOArtisteJPA extends DAOJPA implements DAOArtiste {
 	}
 
 	@Override
-	public Artiste getAvecCode(int code) {
-		Artiste Artiste = DAOJPA.getManager().find(Artiste.class, code);
-		return Artiste;
-	}
-
-	@Override
-	public Set<Artiste> getAvecNom(String nom) {
-		Set<Artiste> SetArtiste = new HashSet<Artiste>(DAOJPA.getManager()
-				.createQuery("SELECT a FROM Artiste a WHERE a.nomArtiste LIKE ?1", Artiste.class)
-				.setParameter(1, "%" + nom + "%").getResultList());
-		if (SetArtiste.size() == 0)
-			return null;
-		else
-			return SetArtiste;
-	}
-	
-	@Override
-	public Artiste getAvecMorceau(Morceau m) {
-		// TODO
-		//pas sur de l'importance de cette méthode....
-		return null;
-	}
-	
-	@Override
-	public Set<Artiste> getAvecTitreMorceau(String tM) {
-		// TODO
-		return null;
+	public void saveAll(Set<Artiste> listeArtiste) {
+		for(Artiste art : listeArtiste) {
+			save(art);
+		}
 	}
 
 	@Override

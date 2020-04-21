@@ -11,41 +11,10 @@ public class DAOUtilisateurJPA extends DAOJPA implements DAOUtilisateur {
 	}
 
 	@Override
-	public Utilisateur getAvecCode(int code) {
-		Utilisateur Utilisateur = DAOJPA.getManager().find(Utilisateur.class, code);
-		return Utilisateur;
-	}
-
-	@Override
-	public Set<Utilisateur> getAvecPseudo(String pseudo) {
-		Set<Utilisateur> listeUtilisateur = new HashSet<Utilisateur>(DAOJPA.getManager()
-				.createQuery("SELECT u FROM Utilisateur u WHERE u.pseudoUtilisateur LIKE ?1", Utilisateur.class)
-				.setParameter(1, "%" + pseudo + "%").getResultList());
-		if(listeUtilisateur.size() == 0)
-			return null;
-		return listeUtilisateur;
-	}
-
-	@Override
-	public Set<Utilisateur> getAvecPrenom(String prenom) {
-		Set<Utilisateur> listeUtilisateur = new HashSet<Utilisateur>(DAOJPA.getManager()
-				.createQuery("SELECT u FROM Utilisateur u WHERE u.prenomUtilisateur LIKE ?1", Utilisateur.class)
-				.setParameter(1, "%" + prenom + "%").getResultList());
-		return listeUtilisateur;
-	}
-
-	@Override
-	public Set<Utilisateur> getAvecNom(String nom) {
-		Set<Utilisateur> listeUtilisateur = new HashSet<Utilisateur>(DAOJPA.getManager()
-				.createQuery("SELECT u FROM Utilisateur u WHERE u.nomUtilisateur LIKE ?1", Utilisateur.class)
-				.setParameter(1, "%" + nom + "%").getResultList());
-		return listeUtilisateur;
-	}
-	
-	@Override
-	public Utilisateur getAvecPlaylist(Playlist p) {
-		// TODO
-		return null;
+	public void saveAll(Set<Utilisateur> listeUtili) {
+		for(Utilisateur u : listeUtili) {
+			save(u);
+		}
 	}
 	
 	static public DAOUtilisateur getInstance() {

@@ -3,6 +3,8 @@ package Model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.PersistenceException;
+
 public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 
 	static private DAOMorceauJPA instance = null;
@@ -17,67 +19,19 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 	}
 
 	@Override
-	public Morceau getAvecCode(int code) {
-		Morceau morceau = DAOJPA.getManager().find(Morceau.class, code);
-		return morceau;
-	}
-
-	@Override
-	public Set<Morceau> getAvecTitre(String titre) {
-		Set<Morceau> listMorceau = new HashSet<Morceau>(DAOJPA.getManager()
-				.createQuery("SELECT m FROM Morceau m WHERE m.titreMorceau LIKE ?1", Morceau.class)
-				.setParameter(1, "%" + titre + "%").getResultList());
-		return listMorceau;
-	}
-	
-	@Override
-	public Set<Morceau> getAvecAlbum(Album album) {
-		// TODO
-		return null;
-	}
-	
-	@Override
-	public Set<Morceau> getAvecNomAlbum(String nA)  {
-		// TODO
-		return null;
-	}
-
-	@Override
-	public Set<Morceau> getAvecArtiste(Artiste artiste) {
-		// TODO
-		return null;
-	}
-	
-	@Override
-	public Set<Morceau> getAvecNomArtiste(String nA) {
-		// TODO
-		return null;
-	}
-
-	@Override
-	public Set<Morceau> getAvecGenre(Genre genre) {
-		Set<Morceau> listMorceau = new HashSet<Morceau>(DAOJPA.getManager()
-				.createQuery("SELECT m FROM Morceau m WHERE m.codeMorceau = (SELECT g FROM genre_morceau g WHERE g.codeGenre = (SELECT ge FROM Genre ge WHERE g.codeGenre = ?1))", Morceau.class)
-				.setParameter(1, genre.getCodeGenre()).getResultList());
-		return listMorceau;
-	}
-
-	@Override
-	public Set<Morceau> getAvecAnnee(int a) {
-		// TODO
-		return null;
-	}
-	
-	@Override
-	public Set<Morceau> getAvecPlaylist(Playlist pl) {
-		// TODO
-		return null;
+	public void saveAll(Set<Morceau> listeM) {
+		for(Morceau m : listeM) {
+			System.out.println("-----------------------------------------------------------------------------------\n"+ m.toString()+"\n");
+			save(m);
+		}
 	}
 	
 	@Override
 	public void save(Morceau morceau) {
+		try{
 		DAOJPA.getManager().persist(morceau);
 		DAOJPA.commit(); /* discutable de commiter ici */
+		} catch(Exception e){System.out.println("Morceau null");}
 	}
 
 	@Override

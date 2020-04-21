@@ -73,7 +73,12 @@ public class Morceau {
 			try {
 				String[] genres = tags.getSongGenre().split(",");
 				for (String genre : genres) {
-					this.genresMorceau.add(new Genre(genre));
+					try{
+					if(genre.length()!=0){
+						String libelleGenre = Genre.getGenres().get(Integer.parseInt(genre.substring(1, genre.length()-1)));
+						this.genresMorceau.add(new Genre(libelleGenre));
+					}
+					} catch(NumberFormatException e) {System.out.println("Genre inconnu");}
 					System.out.println("//////////////////" +genre);
 				}
 				System.out.println("Genre(s) : " + this.genresMorceau + "\n");
