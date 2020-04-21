@@ -13,6 +13,7 @@
 			<basic name="libelleGenre">
 				<column name="libelleGenre" />
 			</basic>
+			<many-to-many name="morceauxGenre" mapped-by="genresMorceau" />
 		</attributes>
 	</entity>
 	<entity class="Model.Morceau">
@@ -49,22 +50,35 @@
 			<basic name="commentaireMorceau">
 				<column name="commentaireMorceau" />
 			</basic>
-			<many-to-one name="artisteMorceau" target-entity="Model.Artiste">
-				<join-column name="codeArtiste" referenced-column-name="codeArtiste" />
+			<many-to-one name="artisteMorceau">
+				<join-column name="codeArtiste" referenced-column-name="codeArtiste" /><cascade>
+                    <cascade-persist/>
+                    <cascade-remove/>
+                    <cascade-refresh/>
+                </cascade>
 			</many-to-one>
-			<many-to-one name="albumMorceau" target-entity="Model.Album">
-				<join-column name="codeAlbum" referenced-column-name="codeAlbum"/>
-			</many-to-one>	
-			<many-to-many name="genresMorceau" target-entity="Model.Genre">
+			<many-to-one name="albumMorceau">
+				<join-column name="codeAlbum" referenced-column-name="codeAlbum" />
+				<cascade>
+                    <cascade-persist/>
+                    <cascade-remove/>
+                </cascade>
+			</many-to-one>
+			<many-to-many name="genresMorceau">
 				<join-table name="genre_morceau">
 					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
-					<inverse-join-column name="codeGenre" referenced-column-name="codeGenre" />
+					<inverse-join-column name="codeGenre"
+						referenced-column-name="codeGenre" />
 				</join-table>
+				<cascade>
+                    <cascade-persist/>
+                </cascade>
 			</many-to-many>
-			<many-to-many name="playlistsMorceau" target-entity="Playlist">
+			<many-to-many name="playlistsMorceau">
 				<join-table name="appartenir">
 					<join-column name="codeMorceau" referenced-column-name="codeMorceau" />
-					<inverse-join-column name="codePlaylist" referenced-column-name="codePlaylist" />
+					<inverse-join-column name="codePlaylist"
+						referenced-column-name="codePlaylist" />
 				</join-table>
 			</many-to-many>
 		</attributes>
@@ -79,7 +93,12 @@
 			<basic name="nomArtiste">
 				<column name="nomArtiste" />
 			</basic>
-			<one-to-many name="morceauxArtiste" target-entity="Model.Morceau" mapped-by="artisteMorceau"/>
+			<one-to-many name="morceauxArtiste" mapped-by="artisteMorceau">
+				<cascade>
+					<cascade-persist />
+					<cascade-remove />
+				</cascade>
+			</one-to-many>
 		</attributes>
 	</entity>
 	<entity class="Model.Album">
@@ -95,7 +114,12 @@
 			<basic name="anneeAlbum">
 				<column name="anneeAlbum" />
 			</basic>
-		<one-to-many name="morceauxAlbum" target-entity="Model.Morceau" mapped-by="albumMorceau"/>
+			<one-to-many name="morceauxAlbum" mapped-by="albumMorceau">
+				<cascade>
+					<cascade-persist />
+					<cascade-remove />
+				</cascade>
+			</one-to-many>
 		</attributes>
 	</entity>
 	<entity class="Model.Playlist">
@@ -114,9 +138,11 @@
 			<basic name="tempsPlaylist">
 				<column name="tempsPlaylist" />
 			</basic>
-			<many-to-one name="createurPlaylist" target-entity="Model.Utilisateur">
-				<join-column name="codeUtilisateur" referenced-column-name="codeUtilisateur" />
+			<many-to-one name="createurPlaylist">
+				<join-column name="codeUtilisateur"
+					referenced-column-name="codeUtilisateur" />
 			</many-to-one>
+			<many-to-many name="morceauxPlaylist" mapped-by="playlistsMorceau" />
 		</attributes>
 	</entity>
 	<entity class="Model.Utilisateur">
@@ -138,8 +164,8 @@
 			<basic name="passwordUtilisateur">
 				<column name="motDePasseUtilisateur" />
 			</basic>
-			<one-to-many name="playlistsUtilisateur" target-entity="Model.Playlist" mapped-by="createurPlaylist"/>
+			<one-to-many name="playlistsUtilisateur" mapped-by="createurPlaylist" />
 		</attributes>
 	</entity>
-	
+
 </entity-mappings>

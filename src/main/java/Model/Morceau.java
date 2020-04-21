@@ -74,6 +74,7 @@ public class Morceau {
 				String[] genres = tags.getSongGenre().split(",");
 				for (String genre : genres) {
 					this.genresMorceau.add(new Genre(genre));
+					System.out.println("//////////////////" +genre);
 				}
 				System.out.println("Genre(s) : " + this.genresMorceau + "\n");
 			} catch (NullPointerException e) {
