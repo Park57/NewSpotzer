@@ -34,6 +34,7 @@ public class DAOGenreJPA extends DAOJPA implements DAOGenre {
 		else
 			return listGenre.get(0);
 	}
+
 	
 	@Override
 	public Set<Genre> getAvecMorceau(Morceau m) {
