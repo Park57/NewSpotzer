@@ -9,5 +9,7 @@ public interface DAOAlbum {
 	void saveAll(Set<Album> listAlb);
 
 	Set<Album> loadAll();
+	
+	void deleteAlbum(Album alb);
 
 }

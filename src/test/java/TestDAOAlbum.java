@@ -14,6 +14,7 @@ import Model.Album;
 import Model.DAOAlbum;
 import Model.DAOAlbumJPA;
 import Model.DAOJPA;
+import Model.Morceau;
 
 public class TestDAOAlbum {
     @Before
@@ -26,6 +27,7 @@ public class TestDAOAlbum {
         Album slipknot = new Album("We are not",1687);/* State = new */
         Album skillet = new Album("Victorious",1745);
         Album amonamarth = new Album("Berserker",2038);
+       
         
         Set<Album> listeAlb = new HashSet<Album>();
         listeAlb.add(slipknot);

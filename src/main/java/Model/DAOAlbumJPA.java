@@ -28,6 +28,11 @@ public class DAOAlbumJPA extends DAOJPA implements DAOAlbum {
 		DAOJPA.getManager().persist(Album);
 		DAOJPA.commit(); /* discutable de commiter ici */
 	}
+	
+	@Override
+	public void deleteAlbum(Album alb) {
+		DAOJPA.getManager().remove(alb);
+	}
 
 	@Override
 	public Set<Album> loadAll() {
