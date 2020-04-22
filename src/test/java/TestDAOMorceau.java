@@ -36,7 +36,8 @@ public class TestDAOMorceau {
     	for(File f : dirf) {
     		temp = new Morceau(f);
     		try{
-    		listeMorceaux.add(temp);
+    			if(temp.getCodeMorceau()==-1)
+    				listeMorceaux.add(temp);
     		} catch(Exception e){System.out.println("probleme qu'on doit savoir");}
     	}
     	
