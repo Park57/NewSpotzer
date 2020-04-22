@@ -12,10 +12,9 @@ public class Playlist {
 	private String descriptionPlaylist;
 	
 	
-	public Playlist(int codePlaylist, Utilisateur createurPlaylist, String titrePlaylist,
+	public Playlist(Utilisateur createurPlaylist, String titrePlaylist,
 			String descriptionPlaylist) {
-		super();
-		this.codePlaylist = codePlaylist;
+		this.codePlaylist = -1;
 		this.createurPlaylist = createurPlaylist;
 		this.titrePlaylist = titrePlaylist;
 		this.descriptionPlaylist = descriptionPlaylist;
@@ -24,6 +23,9 @@ public class Playlist {
 		
 	}
 
+	public void AjouterMorceau(Morceau m){
+		this.morceauxPlaylist.add(m);
+	}
 
 	
 	///////////////////////////

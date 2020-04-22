@@ -5,7 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Model.DAOJPA;
+import Model.DAOPlaylist;
+import Model.DAOPlaylistJPA;
+import Model.DAOUtilisateur;
+import Model.DAOUtilisateurJPA;
 import Model.Playlist;
+import Model.Utilisateur;
 
 
 public class TestDAOPlaylist {
@@ -16,6 +21,17 @@ public class TestDAOPlaylist {
 
 	    @Test
 	    public void test() {
-	    	// TODO Refaire classes
+	    	Utilisateur thomas = new Utilisateur("Philipe", "Thomas", "TOMYDU57", "password1234");
+	    	Playlist Rock = new Playlist(thomas,"lol","lele");
+	    	DAOPlaylist dao = DAOPlaylistJPA.getInstance();
+	    	DAOUtilisateur daou = DAOUtilisateurJPA.getInstance();
+	    	
+	    	Set<Utilisateur> listeUtilisateurs = new HashSet<Utilisateur>();
+	        Set<Playlist> listePlaylists = new HashSet<Playlist>();
+
+	       listePlaylists.add(Rock);
+	       listeUtilisateurs.add(thomas);
+	       thomas.ajoutPlaylistUtilisateur(Rock);
+	       daou.saveAll(listeUtilisateurs);
 	    }
 }
