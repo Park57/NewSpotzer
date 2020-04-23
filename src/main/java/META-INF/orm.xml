@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="1.0"
-	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1.0.xsd">
 	<package>Model</package>
 	<entity class="Model.Genre" access="FIELD">
 		<table name="genre" />
@@ -51,18 +49,19 @@
 				<column name="commentaireMorceau" />
 			</basic>
 			<many-to-one name="artisteMorceau">
-				<join-column name="codeArtiste" referenced-column-name="codeArtiste" /><cascade>
-                    <cascade-persist/>
-                    <cascade-remove/>
-                    <cascade-refresh/>
-                </cascade>
+				<join-column name="codeArtiste" referenced-column-name="codeArtiste" />
+				<cascade>
+					<cascade-persist />
+					<cascade-remove />
+					<cascade-refresh />
+				</cascade>
 			</many-to-one>
 			<many-to-one name="albumMorceau">
 				<join-column name="codeAlbum" referenced-column-name="codeAlbum" />
 				<cascade>
-                    <cascade-persist/>
-                    <cascade-remove/>
-                </cascade>
+					<cascade-persist />
+					<cascade-remove />
+				</cascade>
 			</many-to-one>
 			<many-to-many name="genresMorceau">
 				<join-table name="genre_morceau">
@@ -71,8 +70,8 @@
 						referenced-column-name="codeGenre" />
 				</join-table>
 				<cascade>
-                    <cascade-persist/>
-                </cascade>
+					<cascade-persist />
+				</cascade>
 			</many-to-many>
 			<many-to-many name="playlistsMorceau">
 				<join-table name="appartenir">
@@ -165,7 +164,7 @@
 				<column name="motDePasseUtilisateur" />
 			</basic>
 			<one-to-many name="playlistsUtilisateur" mapped-by="createurPlaylist">
-			<cascade>
+				<cascade>
 					<cascade-persist />
 					<cascade-remove />
 				</cascade>

@@ -3,8 +3,6 @@ package Model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.PersistenceException;
-
 public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 
 	static private DAOMorceauJPA instance = null;

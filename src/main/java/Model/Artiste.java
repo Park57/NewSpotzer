@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Artiste implements Serializable {
+
+	private static final long serialVersionUID = -3376961211561668963L;
 	private int codeArtiste;
 	private String nomArtiste;
 	private Set<Morceau> morceauxArtiste = new HashSet<Morceau>();

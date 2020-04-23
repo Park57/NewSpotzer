@@ -7,7 +7,8 @@ import java.util.Set;
 
 public class Genre implements Serializable {
 
-    private int codeGenre;
+	private static final long serialVersionUID = 5226441970590625226L;
+	private int codeGenre;
     private String libelleGenre;
     private Set<Morceau> morceauxGenre = new HashSet<Morceau>();
     

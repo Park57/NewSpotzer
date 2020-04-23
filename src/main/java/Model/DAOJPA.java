@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
@@ -60,7 +59,6 @@ public class DAOJPA {
 		FileReader f;
 		ArrayList<String> a = new ArrayList<String>();
 		try {
-			
 			f = new FileReader("./genres.txt");
 			BufferedReader r = new BufferedReader(f);
 			String line = r.readLine();
@@ -68,18 +66,27 @@ public class DAOJPA {
 				System.out.println(line);
 				line.trim();
 				a.add(line);
-				//Ajout à la base de donnees
 				DAOGenreJPA.getInstance().save(new Genre(line));
 				line = r.readLine();
 			}
+			f.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch(IOException e){
 			
 		}
+		
 		return a;
 		
+	}
+	public static void replacerFichierMp3() {
+		File[] dirf = new java.io.File("./bibliotheque").listFiles();
+		for (File f : dirf) {
+			File rep = new File("./import");
+			File fileApresDeplacement = new File(rep, f.getName());
+			f.renameTo(fileApresDeplacement);
+		}
+
 	}
 
 	public static void viderBase() // Pratique pour remettre à 0 la base avant des tests

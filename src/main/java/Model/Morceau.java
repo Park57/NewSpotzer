@@ -22,10 +22,10 @@ public class Morceau {
 	private String auteurCompositeurMorceau;
 	private String commentaireMorceau;
 
-	
-	public Morceau(){
-		
+	public Morceau() {
+
 	}
+
 	/*
 	 * Ici on construit un morceau. On reçoit un type File, qu'on passe en
 	 * MP3File, si cela soulève une exception alors on sait que ce n'est pas un
@@ -60,7 +60,6 @@ public class Morceau {
 				System.out.println("Erreur nombre dans annee\n");
 			}
 
-
 			// completion de l'artiste
 			try {
 				this.artisteMorceau = new Artiste(tags.getLeadArtist());
@@ -73,13 +72,16 @@ public class Morceau {
 			try {
 				String[] genres = tags.getSongGenre().split(",");
 				for (String genre : genres) {
-					try{
-					if(genre.length()!=0){
-						String libelleGenre = Genre.getGenres().get(Integer.parseInt(genre.substring(1, genre.length()-1)));
-						this.genresMorceau.add(new Genre(libelleGenre));
+					try {
+						if (genre.length() != 0) {
+							String libelleGenre = Genre.getGenres()
+									.get(Integer.parseInt(genre.substring(1, genre.length() - 1)));
+							this.genresMorceau.add(new Genre(libelleGenre));
+						}
+					} catch (NumberFormatException e) {
+						System.out.println("Genre inconnu");
 					}
-					} catch(NumberFormatException e) {System.out.println("Genre inconnu");}
-					System.out.println("//////////////////" +genre);
+					System.out.println("//////////////////" + genre);
 				}
 				System.out.println("Genre(s) : " + this.genresMorceau + "\n");
 			} catch (NullPointerException e) {
@@ -144,9 +146,9 @@ public class Morceau {
 			} catch (NullPointerException e) {
 				System.out.println("PAS DE COMMENTAIRE\n");
 			}
-			
+
 			System.out.println("\n----------------------------------------------------------------------\n");
-			
+
 		} catch (IOException e) {
 			System.out.println(mp3.getName() + " n'est pas un fihcier de type mp3...");
 			// e.printStackTrace();
@@ -155,7 +157,9 @@ public class Morceau {
 			// e.printStackTrace();
 		}
 
-	}// fin constructeur
+	}
+
+	// fin constructeur
 
 	///////////////////////////
 	//// GETTERS & SETTERS ////
@@ -236,19 +240,19 @@ public class Morceau {
 	public void setCommentaireMorceau(String commentaireMorceau) {
 		this.commentaireMorceau = commentaireMorceau;
 	}
-	
+
 	public Set<Playlist> getPlaylistsMorceau() {
 		return playlistsMorceau;
 	}
+
 	public void setPlaylistsMorceau(Set<Playlist> playlistsMorceau) {
 		this.playlistsMorceau = playlistsMorceau;
 	}
-	
 
 	////////////////////////////////
 	/// AJOUTER RETIRER PRESENCE ///
 	////////////////////////////////
-	
+
 	public void ajoutPlaylistMorceau(Playlist p) {
 		this.playlistsMorceau.add(p);
 	}
@@ -260,7 +264,7 @@ public class Morceau {
 	public void retirerPlaylistMorceau(Playlist p) {
 		this.genresMorceau.remove(p);
 	}
-	
+
 	public void ajoutGenreMorceau(Genre g) {
 		this.genresMorceau.add(g);
 	}

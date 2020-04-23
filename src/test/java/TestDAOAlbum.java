@@ -1,10 +1,4 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
@@ -14,7 +8,6 @@ import Model.Album;
 import Model.DAOAlbum;
 import Model.DAOAlbumJPA;
 import Model.DAOJPA;
-import Model.Morceau;
 
 public class TestDAOAlbum {
     @Before

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Album implements Serializable {
-
+	private static final long serialVersionUID = 4926307291255631743L;
 	private int codeAlbum;
 	private String titreAlbum;
 	private Set<Morceau> morceauxAlbum = new HashSet<Morceau>();
