@@ -100,5 +100,11 @@ public class Genre implements Serializable {
         return true;
     }
 
+	@Override
+	public String toString() {
+		return "Genre [codeGenre=" + codeGenre + ", libelleGenre=" + libelleGenre + /*", morceauxGenre=" + morceauxGenre
+				+*/ "]";
+	}
+
 
 }

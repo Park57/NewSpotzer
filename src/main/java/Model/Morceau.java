@@ -2,6 +2,7 @@ package Model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Morceau {
 	private String commentaireMorceau;
 
 	public Morceau() {
-
+		this.codeMorceau=-1;
 	}
 
 	/*
@@ -182,7 +183,7 @@ public class Morceau {
 	}
 
 	public void setAlbumMorceau(Album albumMorceau) {
-		this.albumMorceau = albumMorceau;
+		this.albumMorceau=albumMorceau;
 	}
 
 	public Artiste getArtisteMorceau() {
@@ -339,11 +340,11 @@ public class Morceau {
 
 	@Override
 	public String toString() {
-		return "Morceau [codeMorceau=" + codeMorceau + ", titreMorceau=" + titreMorceau + ", albumMorceau="
-				+ albumMorceau + ", artistesMorceau=" + artisteMorceau + ", genresMorceau=" + genresMorceau
-				+ ", cheminMorceau=" + cheminMorceau + ", anneeMorceau=" + anneeMorceau + ", parolesMorceau="
-				+ parolesMorceau + ", auteurCompositeurMorceau=" + auteurCompositeurMorceau + ", commentaireMorceau="
-				+ commentaireMorceau + "]";
+		return "Morceau \n[\ncodeMorceau=" + codeMorceau + ",\n titreMorceau=" + titreMorceau + /*",\n albumMorceau="
+				+ albumMorceau.getTitreAlbum() +*/ ",\n artistesMorceau=" + artisteMorceau.getNomArtiste() + ",\n genresMorceau=" + genresMorceau
+				+ ",\n cheminMorceau=" + cheminMorceau + ",\n anneeMorceau=" + anneeMorceau + ",\n parolesMorceau="
+				+ parolesMorceau + ",\n auteurCompositeurMorceau=" + auteurCompositeurMorceau + ",\n commentaireMorceau="
+				+ commentaireMorceau + "\n]";
 	}
 
 }

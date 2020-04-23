@@ -29,7 +29,8 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 		try{
 		DAOJPA.getManager().persist(morceau);
 		DAOJPA.commit(); /* discutable de commiter ici */
-		} catch(Exception e){System.out.println("Morceau null");}
+		} catch(Exception e){
+			e.printStackTrace();/*System.out.println("Morceau null");*/}
 	}
 
 	@Override

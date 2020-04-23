@@ -17,7 +17,7 @@ public class Artiste implements Serializable {
 	}
 	
 	public Artiste(){
-		
+		this.codeArtiste=-1;
 	}
 
 	public int getCodeArtiste() {

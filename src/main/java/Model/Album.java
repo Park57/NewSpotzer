@@ -21,6 +21,7 @@ public class Album implements Serializable {
 	}
 
 	public Album() {
+		this.codeAlbum=-1;
 	}
 
 	public int getCodeAlbum() {

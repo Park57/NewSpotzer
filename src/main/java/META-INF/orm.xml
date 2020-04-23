@@ -114,10 +114,6 @@
 				<column name="anneeAlbum" />
 			</basic>
 			<one-to-many name="morceauxAlbum" mapped-by="albumMorceau">
-				<cascade>
-					<cascade-persist />
-					<cascade-remove />
-				</cascade>
 			</one-to-many>
 		</attributes>
 	</entity>
