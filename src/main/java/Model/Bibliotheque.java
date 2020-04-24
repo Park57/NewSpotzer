@@ -58,7 +58,6 @@ public class Bibliotheque {
 				boolean trouve = false;
 				for (Artiste a : listeArtistes) {
 					// Demander a l'utilisateur
-					System.out.println("!!!!!!!!!! On compare "+a.getNomArtiste()+" ET "+nomArtiste);
 					if (a.getNomArtiste().equals(nomArtiste)) {
 						
 						artistemp3 = a;
@@ -116,10 +115,7 @@ public class Bibliotheque {
 			// completion de l'album
 			try {
 				String nomAlbum = tags.getAlbumTitle();
-				System.out.println("Nom de l'album : " + nomAlbum);
-
 				int anneeAlbum = Integer.parseInt(tags.getYearReleased());
-				System.out.println("Annee : " + anneeAlbum);
 				boolean trouve = false;
 				for (Album a : listeAlbums) {
 					if (a.getTitreAlbum().equals(nomAlbum) /*&& (a.getAnneeAlbum() == anneeAlbum)*/) {
@@ -219,8 +215,8 @@ public class Bibliotheque {
 				g.getMorceauxGenre().add(morceaump3);
 			}
 			listeMorceaux.add(morceaump3);
-			System.out.println(morceaump3);
-			System.out.println("\n----------------------------------------------------------------------\n");
+			
+			System.out.println("On a ajouté le morceau : \n\n"+morceaump3);
 
 		} catch (IOException e) {
 			System.out.println(mp3.getName() + " n'est pas un fihcier de type mp3...");
@@ -229,7 +225,7 @@ public class Bibliotheque {
 			System.out.println("tag excpetion");
 			// e.printStackTrace();
 		}
-		//System.out.println(listeMorceaux.toString());
+		System.out.println("&&&& Nous avons donc actuellement : &&&&");
 		for(Album a : listeAlbums)
 			System.out.println("L'album : "+a.getTitreAlbum() +" possede : "+a.getMorceauxAlbum().size()+"titres");
 		for(Artiste a : listeArtistes)

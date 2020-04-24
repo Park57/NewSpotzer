@@ -24,7 +24,7 @@ public class TestBibliotheque {
 		int compteur = 0;
     	for(File f : dirf) {
     		compteur ++;
-    		System.out.println("§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ "+compteur);
+    		System.out.println("§§§§§§§§§§§§§§§§§§§§§    Ajout numero "+compteur+" dans la partie metier     §§§§§§§§§§§§§§§§§§§§§§§§§§ ");
     		b.ajouterUnMorceau(f);
     	}
 	}
@@ -32,6 +32,7 @@ public class TestBibliotheque {
 	@After
 	public void fin()
 	{
+		System.out.println("/////////////////////////\n\n On ajoute maintenant a la bdd la partie metier");
 		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
 	}
 }
