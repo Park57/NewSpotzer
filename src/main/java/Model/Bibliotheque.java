@@ -58,7 +58,9 @@ public class Bibliotheque {
 				boolean trouve = false;
 				for (Artiste a : listeArtistes) {
 					// Demander a l'utilisateur
-					if (a.getNomArtiste() == nomArtiste) {
+					System.out.println("!!!!!!!!!! On compare "+a.getNomArtiste()+" ET "+nomArtiste);
+					if (a.getNomArtiste().equals(nomArtiste)) {
+						
 						artistemp3 = a;
 						trouve = true;
 					} 
@@ -230,6 +232,9 @@ public class Bibliotheque {
 		//System.out.println(listeMorceaux.toString());
 		for(Album a : listeAlbums)
 			System.out.println("L'album : "+a.getTitreAlbum() +" possede : "+a.getMorceauxAlbum().size()+"titres");
+		for(Artiste a : listeArtistes)
+			System.out.println("L'artiste "+a.getNomArtiste()+" a chanter "+a.getMorceauxArtiste().size()+" titres");
+		System.out.println("\n----------------------------------------------------------------------\n");
 	}
 
 }
