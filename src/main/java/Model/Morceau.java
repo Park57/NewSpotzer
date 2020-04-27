@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Transient;
+
 import org.farng.mp3.MP3File;
 import org.farng.mp3.TagException;
 import org.farng.mp3.id3.AbstractID3v2;
@@ -22,9 +24,12 @@ public class Morceau {
 	private String parolesMorceau;
 	private String auteurCompositeurMorceau;
 	private String commentaireMorceau;
+	@Transient
+	private int etatMetier;
 
 	public Morceau() {
 		this.codeMorceau=-1;
+		etatMetier = Bibliotheque.CREE;
 	}
 
 	/*
@@ -162,6 +167,11 @@ public class Morceau {
 
 	// fin constructeur
 
+	
+	public void supprimerMorceau()
+	{
+		this.etatMetier=Bibliotheque.SUPPRIMER;
+	}
 	///////////////////////////
 	//// GETTERS & SETTERS ////
 	///////////////////////////
@@ -170,11 +180,20 @@ public class Morceau {
 		return codeMorceau;
 	}
 
+	public int getEtatMetier() {
+		return etatMetier;
+	}
+
+	public void setEtatMetier(int etatMetier) {
+		this.etatMetier = etatMetier;
+	}
+
 	public String getTitreMorceau() {
 		return titreMorceau;
 	}
 
 	public void setTitreMorceau(String titreMorceau) {
+		this.etatMetier=Bibliotheque.MODIFIE;
 		this.titreMorceau = titreMorceau;
 	}
 
@@ -184,6 +203,7 @@ public class Morceau {
 
 	public void setAlbumMorceau(Album albumMorceau) {
 		this.albumMorceau=albumMorceau;
+		this.etatMetier=Bibliotheque.MODIFIE;
 	}
 
 	public Artiste getArtisteMorceau() {
@@ -192,6 +212,7 @@ public class Morceau {
 
 	public void setArtisteMorceau(Artiste artisteMorceau) {
 		this.artisteMorceau = artisteMorceau;
+		this.etatMetier=Bibliotheque.MODIFIE;
 	}
 
 	public Set<Genre> getGenresMorceau() {
@@ -200,6 +221,7 @@ public class Morceau {
 
 	public void setGenresMorceau(Set<Genre> genresMorceau) {
 		this.genresMorceau = genresMorceau;
+		this.etatMetier=Bibliotheque.MODIFIE;
 	}
 
 	public String getCheminMorceau() {
@@ -240,6 +262,7 @@ public class Morceau {
 
 	public void setCommentaireMorceau(String commentaireMorceau) {
 		this.commentaireMorceau = commentaireMorceau;
+		this.etatMetier=Bibliotheque.MODIFIE;
 	}
 
 	public Set<Playlist> getPlaylistsMorceau() {

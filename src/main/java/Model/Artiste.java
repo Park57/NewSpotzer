@@ -10,14 +10,17 @@ public class Artiste implements Serializable {
 	private int codeArtiste;
 	private String nomArtiste;
 	private Set<Morceau> morceauxArtiste = new HashSet<Morceau>();
+	//private int etatMetier;
 
 	public Artiste(String nomArtiste) {
 		this.codeArtiste = -1;
 		this.nomArtiste = nomArtiste;
+		//etatMetier = Bibliotheque.CREE;
 	}
 	
 	public Artiste(){
 		this.codeArtiste=-1;
+		//etatMetier = Bibliotheque.CREE;
 	}
 
 	public int getCodeArtiste() {
@@ -26,6 +29,14 @@ public class Artiste implements Serializable {
 
 	public void setCodeArtiste(int codeArtiste) {
 		this.codeArtiste = codeArtiste;
+	}
+
+	/*public int getEtatMetier() {
+		return etatMetier;
+	}*/
+
+	public void setEtatMetier(int etatMetier) {
+		//this.etatMetier = etatMetier;
 	}
 
 	public String getNomArtiste() {

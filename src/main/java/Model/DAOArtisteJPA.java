@@ -8,7 +8,7 @@ public class DAOArtisteJPA extends DAOJPA implements DAOArtiste {
 	static private DAOArtisteJPA instance = null;
 
 	private DAOArtisteJPA() {
-		}
+	}
 
 	static public DAOArtiste getInstance() {
 		if (instance == null)
@@ -18,21 +18,36 @@ public class DAOArtisteJPA extends DAOJPA implements DAOArtiste {
 
 	@Override
 	public void saveAll(Set<Artiste> listeArtiste) {
-		for(Artiste art : listeArtiste) {
+		for (Artiste art : listeArtiste) {
 			save(art);
 		}
 	}
 
 	@Override
-	public void save(Artiste Artiste) {
-		DAOJPA.getManager().persist(Artiste);
+	public void save(Artiste artiste) {
+		DAOJPA.getManager().persist(artiste);
+		DAOJPA.commit(); /* discutable de commiter ici */
+
+	}
+
+	@Override
+	public void merge(Artiste artiste) {
+		DAOJPA.getManager().merge(artiste);
+		DAOJPA.commit(); /* discutable de commiter ici */
+
+	}
+
+	@Override
+	public void delete(Artiste artiste) {
+		DAOJPA.getManager().remove(artiste);
 		DAOJPA.commit(); /* discutable de commiter ici */
 
 	}
 
 	@Override
 	public Set<Artiste> loadAll() {
-		return new HashSet<Artiste>(DAOJPA.getManager().createQuery("SELECT a FROM Artiste a", Artiste.class).getResultList());
+		return new HashSet<Artiste>(
+				DAOJPA.getManager().createQuery("SELECT a FROM Artiste a", Artiste.class).getResultList());
 	}
 
 	public Artiste get(int code) {

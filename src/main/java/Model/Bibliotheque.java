@@ -11,6 +11,11 @@ import org.farng.mp3.TagException;
 import org.farng.mp3.id3.AbstractID3v2;
 
 public class Bibliotheque {
+	public final static int INCHANGE = 0;
+	public final static int CREE = 1;
+	public final static int MODIFIE = 2;
+	public final static int SUPPRIMER = 3;
+	
 	private Set<Artiste> listeArtistes = new HashSet<Artiste>();
 	private Set<Album> listeAlbums = new HashSet<Album>();
 	private Set<Morceau> listeMorceaux = new HashSet<Morceau>();
@@ -38,12 +43,6 @@ public class Bibliotheque {
 		// DAOAlbumJPA.getInstance().saveAll(listeAlbums);
 		DAOMorceauJPA.getInstance().saveAll(listeMorceaux);
 	}
-	
-	public void ref(){
-		DAOMorceauJPA.getInstance().refAll(listeMorceaux);
-	}
-	
-	
 	
 
 	public void ajouterUnMorceau(File mp3) {
@@ -220,6 +219,7 @@ public class Bibliotheque {
 			for (Genre g : genresmp3) {
 				g.getMorceauxGenre().add(morceaump3);
 			}
+			morceaump3.setEtatMetier(CREE);
 			listeMorceaux.add(morceaump3);
 
 			System.out.println("On a ajouté le morceau : \n\n" + morceaump3);

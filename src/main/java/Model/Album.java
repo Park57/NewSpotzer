@@ -10,6 +10,7 @@ public class Album implements Serializable {
 	private String titreAlbum;
 	private Set<Morceau> morceauxAlbum = new HashSet<Morceau>();
 	private int anneeAlbum;
+	//private int etatMetier;
 
 
 	public Album(String titreAlbum, int anneeAlbum) {
@@ -18,10 +19,12 @@ public class Album implements Serializable {
 			this.titreAlbum = titreAlbum;
 		if (anneeAlbum != -1)
 			this.anneeAlbum = anneeAlbum;
+		//etatMetier = Bibliotheque.CREE;
 	}
 
 	public Album() {
 		this.codeAlbum=-1;
+		//etatMetier = Bibliotheque.CREE;
 	}
 
 	public int getCodeAlbum() {
@@ -56,6 +59,14 @@ public class Album implements Serializable {
 		this.anneeAlbum = anneeAlbum;
 	}
 	
+	/*public int getEtatMetier() {
+		return etatMetier;
+	}*/
+
+	public void setEtatMetier(int etatMetier) {
+		//this.etatMetier = etatMetier;
+	}
+
 	public void ajoutMorceauAlbum(Morceau m){
 		morceauxAlbum.add(m);
 	}

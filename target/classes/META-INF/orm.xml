@@ -81,9 +81,6 @@
 				<column name="nomArtiste" />
 			</basic>
 			<one-to-many name="morceauxArtiste" mapped-by="artisteMorceau">
-				<cascade>
-					<cascade-remove />
-				</cascade>
 			</one-to-many>
 		</attributes>
 	</entity>

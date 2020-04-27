@@ -39,6 +39,10 @@ public class TestBibliotheque {
 	public void fin()
 	{
 		System.out.println("/////////////////////////\n\n On ajoute maintenant a la bdd la partie metier");
+		/*for(Morceau m : b.getListeMorceaux())
+		{
+			System.out.println(m.getTitreMorceau() +"     " +m.getEtatMetier());
+		}*/
 		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
 		Scanner scan = new Scanner(System.in);
 		System.out.println("On va maintenant refresh ");
@@ -46,6 +50,11 @@ public class TestBibliotheque {
 		
 		ArrayList<Morceau> arrayl = new ArrayList<Morceau>(b.getListeMorceaux());
 		arrayl.get(1).setTitreMorceau("blablatat");
-		b.ref();
+		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		str = scan.nextLine();
+		arrayl.get(1).supprimerMorceau();;
+		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		DAOJPA.commit();
+		
 	}
 }
