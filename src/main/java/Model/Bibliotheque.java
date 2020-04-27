@@ -17,17 +17,15 @@ public class Bibliotheque {
 	private Set<Genre> listeGenres = new HashSet<Genre>();
 
 	public Bibliotheque() {
-		
+
 	}
 
-	public void afficherLesGenres()
-	{
-		for(Genre g : listeGenres)
-		{
-			System.out.println(g.getCodeGenre()+" : "+g.getLibelle());
+	public void afficherLesGenres() {
+		for (Genre g : listeGenres) {
+			System.out.println(g.getCodeGenre() + " : " + g.getLibelle());
 		}
 	}
-	
+
 	public void chargerLaBaseDeDonnéesEnMetier() {
 		listeArtistes = DAOArtisteJPA.getInstance().loadAll();
 		listeAlbums = DAOAlbumJPA.getInstance().loadAll();
@@ -36,8 +34,8 @@ public class Bibliotheque {
 	}
 
 	public void sauvegarderLaPartieMetierEnBaseDeDonnées() {
-		//DAOArtisteJPA.getInstance().saveAll(listeArtistes);
-		//DAOAlbumJPA.getInstance().saveAll(listeAlbums);
+		// DAOArtisteJPA.getInstance().saveAll(listeArtistes);
+		// DAOAlbumJPA.getInstance().saveAll(listeAlbums);
 		DAOMorceauJPA.getInstance().saveAll(listeMorceaux);
 	}
 
@@ -50,56 +48,55 @@ public class Bibliotheque {
 
 		try {
 			morceau = new MP3File(mp3);
-			System.out.println("Est ID3V1 : "+morceau.hasID3v1Tag());
-			System.out.println("Est ID3V2 : "+morceau.hasID3v2Tag());
+			System.out.println("Est ID3V1 : " + morceau.hasID3v1Tag());
+			System.out.println("Est ID3V2 : " + morceau.hasID3v2Tag());
 			AbstractID3v2 tags = morceau.getID3v2Tag();
 
 			// completion de l'artiste
 			try {
 				String nomArtiste = tags.getLeadArtist();
-				boolean trouve = false;
-				for (Artiste a : listeArtistes) {
-					// Demander a l'utilisateur
-					
-					System.out.println("Artiste : "+nomArtiste);
-					if (a.getNomArtiste().equals(nomArtiste)) {
-						
-						artistemp3 = a;
-						trouve = true;
-					} 
+				if (!nomArtiste.equals("")) {
+					boolean trouve = false;
+					for (Artiste a : listeArtistes) {
+						// Demander a l'utilisateur
+
+						System.out.println("Artiste : " + nomArtiste);
+						if (a.getNomArtiste().equals(nomArtiste)) {
+
+							artistemp3 = a;
+							trouve = true;
+						}
+					}
+					if (!trouve) {
+						artistemp3 = new Artiste(nomArtiste);
+						listeArtistes.add(artistemp3);
+					}
 				}
-				if(!trouve)
-				{
-					artistemp3 = new Artiste(nomArtiste);
-					listeArtistes.add(artistemp3);
-				}
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 			// completion des genres
 			try {
 				String[] genres = tags.getSongGenre().split(",");
 				for (String genre : genres) {
-					System.out.println("GENRE : "+genre);
+					System.out.println("GENRE : " + genre);
 					try {
 						if (genre.length() != 0) {
 							boolean trouve = false;
-							int numGenre=-1;
+							int numGenre = -1;
 							try {
-							 numGenre =Byte.parseByte(genre.substring(1, genre.length() - 1));
-							}catch (Exception e) {
-								//e.printStackTrace();
+								numGenre = Byte.parseByte(genre.substring(1, genre.length() - 1));
+							} catch (Exception e) {
+								// e.printStackTrace();
 							}
 							for (Genre g : listeGenres) {
-								
-								if (g.getCodeGenre()-1 == numGenre) {
+
+								if (g.getCodeGenre() - 1 == numGenre) {
 									genresmp3.add(g);
 									trouve = true;
 								}
-								if(genre.equals(g.getLibelle()))
-								{
+								if (genre.equals(g.getLibelle())) {
 									genresmp3.add(g);
 									trouve = true;
 								}
@@ -122,19 +119,18 @@ public class Bibliotheque {
 				int anneeAlbum = Integer.parseInt(tags.getYearReleased());
 				boolean trouve = false;
 				for (Album a : listeAlbums) {
-					if (a.getTitreAlbum().equals(nomAlbum) /*&& (a.getAnneeAlbum() == anneeAlbum)*/) {
+					if (a.getTitreAlbum().equals(nomAlbum) /* && (a.getAnneeAlbum() == anneeAlbum) */) {
 
 						albummp3 = a;
 						trouve = true;
 					}
 
 				}
-				if (trouve == false)
-				{
+				if (trouve == false) {
 					albummp3 = new Album(nomAlbum, anneeAlbum);
 					listeAlbums.add(albummp3);
 				}
-					
+
 			} catch (NullPointerException e) {
 				System.out.println("Album vide\n");
 			} catch (NumberFormatException e) {
@@ -185,10 +181,9 @@ public class Bibliotheque {
 			// Annee
 			try {
 				String annee = tags.getYearReleased();
-				if(annee!="")
-				{
+				if (annee != "") {
 					morceaump3.setAnneeMorceau(Integer.parseInt(annee));
-				}			
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -211,16 +206,16 @@ public class Bibliotheque {
 				e.printStackTrace();
 			}
 
-			artistemp3.getMorceauxArtiste().add(morceaump3);
-			if(albummp3!=null)
+			if (artistemp3 != null)
+				artistemp3.getMorceauxArtiste().add(morceaump3);
+			if (albummp3 != null)
 				albummp3.getMorceauxAlbum().add(morceaump3);
-			for(Genre g : genresmp3)
-			{
+			for (Genre g : genresmp3) {
 				g.getMorceauxGenre().add(morceaump3);
 			}
 			listeMorceaux.add(morceaump3);
-			
-			System.out.println("On a ajouté le morceau : \n\n"+morceaump3);
+
+			System.out.println("On a ajouté le morceau : \n\n" + morceaump3);
 
 		} catch (IOException e) {
 			System.out.println(mp3.getName() + " n'est pas un fihcier de type mp3...");
@@ -230,10 +225,12 @@ public class Bibliotheque {
 			// e.printStackTrace();
 		}
 		System.out.println("&&&& Nous avons donc actuellement : &&&&");
-		for(Album a : listeAlbums)
-			System.out.println("L'album : "+a.getTitreAlbum() +" possede : "+a.getMorceauxAlbum().size()+"titres");
-		for(Artiste a : listeArtistes)
-			System.out.println("L'artiste "+a.getNomArtiste()+" a chanter "+a.getMorceauxArtiste().size()+" titres");
+		for (Album a : listeAlbums)
+			System.out
+					.println("L'album : " + a.getTitreAlbum() + " possede : " + a.getMorceauxAlbum().size() + "titres");
+		for (Artiste a : listeArtistes)
+			System.out.println(
+					"L'artiste " + a.getNomArtiste() + " a chanter " + a.getMorceauxArtiste().size() + " titres");
 		System.out.println("\n----------------------------------------------------------------------\n");
 	}
 

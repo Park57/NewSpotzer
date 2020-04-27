@@ -35,4 +35,8 @@ public class DAOArtisteJPA extends DAOJPA implements DAOArtiste {
 		return new HashSet<Artiste>(DAOJPA.getManager().createQuery("SELECT a FROM Artiste a", Artiste.class).getResultList());
 	}
 
+	public Artiste get(int code) {
+		Artiste Artiste = DAOJPA.getManager().find(Artiste.class, code);
+		return Artiste;
+	}
 }

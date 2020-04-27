@@ -11,5 +11,8 @@ public interface DAOAlbum {
 	Set<Album> loadAll();
 	
 	void deleteAlbum(Album alb);
+	
+	Album get(int code);
+
 
 }

@@ -50,18 +50,9 @@
 			</basic>
 			<many-to-one name="artisteMorceau">
 				<join-column name="codeArtiste" referenced-column-name="codeArtiste" />
-				<cascade>
-					<cascade-persist />
-					<cascade-remove />
-					<cascade-refresh />
-				</cascade>
 			</many-to-one>
 			<many-to-one name="albumMorceau">
 				<join-column name="codeAlbum" referenced-column-name="codeAlbum" />
-				<cascade>
-					<cascade-persist />
-					<cascade-remove />
-				</cascade>
 			</many-to-one>
 			<many-to-many name="genresMorceau">
 				<join-table name="genre_morceau">
@@ -91,7 +82,6 @@
 			</basic>
 			<one-to-many name="morceauxArtiste" mapped-by="artisteMorceau">
 				<cascade>
-					<cascade-persist />
 					<cascade-remove />
 				</cascade>
 			</one-to-many>

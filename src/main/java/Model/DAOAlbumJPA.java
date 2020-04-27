@@ -39,5 +39,9 @@ public class DAOAlbumJPA extends DAOJPA implements DAOAlbum {
 		return new HashSet<Album>(DAOJPA.getManager().createQuery("SELECT a FROM Album a", Album.class).getResultList());
 	}
 
+	public Album get(int code) {
+		Album Album = DAOJPA.getManager().find(Album.class, code);
+		return Album;
+	}
 }
 

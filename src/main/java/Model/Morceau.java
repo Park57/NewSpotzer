@@ -341,7 +341,7 @@ public class Morceau {
 	@Override
 	public String toString() {
 		return "Morceau \n[\ncodeMorceau=" + codeMorceau + ",\n titreMorceau=" + titreMorceau + /*",\n albumMorceau="
-				+ albumMorceau.getTitreAlbum() +*/ ",\n artistesMorceau=" + artisteMorceau.getNomArtiste() + ",\n genresMorceau=" + genresMorceau
+				+ albumMorceau.getTitreAlbum() +*/ /*",\n artistesMorceau=" + artisteMorceau.getNomArtiste() +*/ ",\n genresMorceau=" + genresMorceau
 				+ ",\n cheminMorceau=" + cheminMorceau + ",\n anneeMorceau=" + anneeMorceau + ",\n parolesMorceau="
 				+ parolesMorceau + ",\n auteurCompositeurMorceau=" + auteurCompositeurMorceau + ",\n commentaireMorceau="
 				+ commentaireMorceau + "\n]";
