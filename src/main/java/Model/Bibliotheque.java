@@ -38,6 +38,13 @@ public class Bibliotheque {
 		// DAOAlbumJPA.getInstance().saveAll(listeAlbums);
 		DAOMorceauJPA.getInstance().saveAll(listeMorceaux);
 	}
+	
+	public void ref(){
+		DAOMorceauJPA.getInstance().refAll(listeMorceaux);
+	}
+	
+	
+	
 
 	public void ajouterUnMorceau(File mp3) {
 		MP3File morceau = null;
@@ -233,5 +240,40 @@ public class Bibliotheque {
 					"L'artiste " + a.getNomArtiste() + " a chanter " + a.getMorceauxArtiste().size() + " titres");
 		System.out.println("\n----------------------------------------------------------------------\n");
 	}
+
+	public Set<Artiste> getListeArtistes() {
+		return listeArtistes;
+	}
+
+	public void setListeArtistes(Set<Artiste> listeArtistes) {
+		this.listeArtistes = listeArtistes;
+	}
+
+	public Set<Album> getListeAlbums() {
+		return listeAlbums;
+	}
+
+	public void setListeAlbums(Set<Album> listeAlbums) {
+		this.listeAlbums = listeAlbums;
+	}
+
+	public Set<Morceau> getListeMorceaux() {
+		return listeMorceaux;
+	}
+
+	public void setListeMorceaux(Set<Morceau> listeMorceaux) {
+		this.listeMorceaux = listeMorceaux;
+	}
+
+	public Set<Genre> getListeGenres() {
+		return listeGenres;
+	}
+
+	public void setListeGenres(Set<Genre> listeGenres) {
+		this.listeGenres = listeGenres;
+	}
+	
+	
+	
 
 }

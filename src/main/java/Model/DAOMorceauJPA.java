@@ -24,6 +24,13 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 			save(m);
 		}
 	}
+	 public void refAll(Set<Morceau> listeM){
+		 for (Morceau m : listeM) {
+				System.out.println("-----------------------------------------------------------------------------------\n"
+						+ m.toString() + "\n");
+				refresh(m);
+			}
+	 }
 
 	@Override
 	public void save(Morceau morceau) {
@@ -57,6 +64,19 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 	public Set<Morceau> loadAll() {
 		return new HashSet<Morceau>(
 				DAOJPA.getManager().createQuery("SELECT m FROM Morceau m", Morceau.class).getResultList());
+	}
+
+	@Override
+	public void delete(Morceau morceau) {
+		
+	}
+	
+
+	@Override
+	public void refresh(Morceau morceau) {
+		DAOJPA.getManager().merge(morceau);
+		DAOJPA.commit(); /* discutable de commiter ici */
+		
 	}
 
 }
