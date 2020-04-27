@@ -50,6 +50,8 @@ public class Bibliotheque {
 
 		try {
 			morceau = new MP3File(mp3);
+			System.out.println("Est ID3V1 : "+morceau.hasID3v1Tag());
+			System.out.println("Est ID3V2 : "+morceau.hasID3v2Tag());
 			AbstractID3v2 tags = morceau.getID3v2Tag();
 
 			// completion de l'artiste
@@ -58,6 +60,8 @@ public class Bibliotheque {
 				boolean trouve = false;
 				for (Artiste a : listeArtistes) {
 					// Demander a l'utilisateur
+					
+					System.out.println("Artiste : "+nomArtiste);
 					if (a.getNomArtiste().equals(nomArtiste)) {
 						
 						artistemp3 = a;
@@ -75,7 +79,7 @@ public class Bibliotheque {
 			}
 
 			// completion des genres
-			/*try {
+			try {
 				String[] genres = tags.getSongGenre().split(",");
 				for (String genre : genres) {
 					System.out.println("GENRE : "+genre);
@@ -110,7 +114,7 @@ public class Bibliotheque {
 				}
 			} catch (NullPointerException e) {
 				System.out.println("Genre vide\n");
-			}*/
+			}
 
 			// completion de l'album
 			try {

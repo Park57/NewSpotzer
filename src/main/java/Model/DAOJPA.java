@@ -104,6 +104,9 @@ public class DAOJPA {
 		getManager().createQuery("DELETE FROM Utilisateur").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE utilisateur AUTO_INCREMENT = 1").executeUpdate();
 		
+		/*etManager().createQuery("DELETE FROM ").executeUpdate();
+		getManager().createNativeQuery("ALTER TABLE genre_morceau AUTO_INCREMENT = 1").executeUpdate();*/
+		
 	}
 	
 	

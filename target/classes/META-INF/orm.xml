@@ -69,9 +69,6 @@
 					<inverse-join-column name="codeGenre"
 						referenced-column-name="codeGenre" />
 				</join-table>
-				<cascade>
-					<cascade-persist />
-				</cascade>
 			</many-to-many>
 			<many-to-many name="playlistsMorceau">
 				<join-table name="appartenir">
