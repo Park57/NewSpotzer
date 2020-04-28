@@ -49,11 +49,12 @@ public class TestBibliotheque {
 		String str = scan.nextLine();
 		
 		ArrayList<Morceau> arrayl = new ArrayList<Morceau>(b.getListeMorceaux());
-		arrayl.get(1).setTitreMorceau("blablatat");
+		System.out.println("*******************"+arrayl.get(2));
+		arrayl.get(2).setTitreMorceau("blablatat");
 		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
 		str = scan.nextLine();
-		arrayl.get(1).supprimerMorceau();;
-		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		//arrayl.get(1).supprimerMorceau();;
+		//b.sauvegarderLaPartieMetierEnBaseDeDonnées();
 		DAOJPA.commit();
 		
 	}

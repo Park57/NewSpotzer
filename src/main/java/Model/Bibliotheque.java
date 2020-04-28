@@ -61,6 +61,8 @@ public class Bibliotheque {
 			// completion de l'artiste
 			try {
 				String nomArtiste = tags.getLeadArtist();
+				nomArtiste = nomArtiste.trim();
+				System.out.println("%%%%%%%%%%%%%%% "+nomArtiste);
 				if (!nomArtiste.equals("")) {
 					boolean trouve = false;
 					for (Artiste a : listeArtistes) {
@@ -122,6 +124,7 @@ public class Bibliotheque {
 			// completion de l'album
 			try {
 				String nomAlbum = tags.getAlbumTitle();
+				System.out.println("%%%%%%%%%%%%%%% "+nomAlbum);
 				int anneeAlbum = Integer.parseInt(tags.getYearReleased());
 				boolean trouve = false;
 				for (Album a : listeAlbums) {

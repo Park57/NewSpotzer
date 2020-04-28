@@ -19,18 +19,27 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 	@Override
 	public void saveAll(Set<Morceau> listeM) {
 		for (Morceau m : listeM) {
-			System.out.println("---------------"+m.getTitreMorceau() + " A l'etat : "+m.getEtatMetier());
+			System.out.println("---------------"+m + " A l'etat : "+m.getEtatMetier());
 			if (m.getEtatMetier() != Bibliotheque.INCHANGE) {
-				if (m.getEtatMetier() == Bibliotheque.CREE)
+				if (m.getEtatMetier() == Bibliotheque.CREE){
+					System.out.println("On sauvegarde " +m.getTitreMorceau());
 					save(m);
-				else if (m.getEtatMetier() == Bibliotheque.MODIFIE)
+				}
+				else if (m.getEtatMetier() == Bibliotheque.MODIFIE){
+					System.out.println("On modifie " +m.getTitreMorceau());
 					merge(m);
-				else if (m.getEtatMetier() == Bibliotheque.SUPPRIMER)
+				}
+					
+				else if (m.getEtatMetier() == Bibliotheque.SUPPRIMER){
+					System.out.println("On supprime " +m.getTitreMorceau());
 					delete(m);
+				}
+					
 				m.setEtatMetier(Bibliotheque.INCHANGE);
 			}
 			//save(m);
 		}
+		//DAOJPA.commit();
 	}
 
 	@Override
