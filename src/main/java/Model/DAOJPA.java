@@ -101,8 +101,8 @@ public class DAOJPA {
 		getManager().createNativeQuery("ALTER TABLE genre AUTO_INCREMENT = 1").executeUpdate();
 		getManager().createQuery("DELETE FROM Playlist").executeUpdate();
 		getManager().createNativeQuery("ALTER TABLE playlist AUTO_INCREMENT = 1").executeUpdate();
-		getManager().createQuery("DELETE FROM Utilisateur").executeUpdate();
-		getManager().createNativeQuery("ALTER TABLE utilisateur AUTO_INCREMENT = 1").executeUpdate();
+		/*getManager().createQuery("DELETE FROM Utilisateur").executeUpdate();
+		getManager().createNativeQuery("ALTER TABLE utilisateur AUTO_INCREMENT = 1").executeUpdate();*/
 		
 	}
 	

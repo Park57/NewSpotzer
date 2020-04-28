@@ -11,7 +11,9 @@ import org.junit.Test;
 
 import Model.Bibliotheque;
 import Model.DAOJPA;
+import Model.DAOPlaylistJPA;
 import Model.Morceau;
+import Model.Playlist;
 
 public class TestBibliotheque {
 	Bibliotheque b = new Bibliotheque();
@@ -25,12 +27,9 @@ public class TestBibliotheque {
 
 	@Test
 	public void test() {
-		b.afficherLesGenres();
+		System.out.println("\n///////////////////////// PARTIE METIER ////////////////////////////////\n");
 		File[] dirf = new java.io.File("./import").listFiles();
-		int compteur = 0;
     	for(File f : dirf) {
-    		compteur ++;
-    		System.out.println("§§§§§§§§§§§§§§§§§§§§§    Ajout numero "+compteur+" dans la partie metier     §§§§§§§§§§§§§§§§§§§§§§§§§§ ");
     		b.ajouterUnMorceau(f);
     	}
 	}
@@ -38,25 +37,48 @@ public class TestBibliotheque {
 	@After
 	public void fin()
 	{
-		System.out.println("\n///////////////////////// On ajoute maintenant a la bdd la partie metier ////////////////////////////////\n");
-		/*for(Morceau m : b.getListeMorceaux())
+		System.out.println("\n///////////////////////// PARTIE BDD ////////////////////////////////\n");
+		for(Morceau m : b.getListeMorceaux())
 		{
-			System.out.println(m.getTitreMorceau() +"     " +m.getEtatMetier());
-		}*/
+			System.out.println("Le morceau "+m.getTitreMorceau() +" est donc a l'état " +m.getEtatMetier());
+		}
 		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		ArrayList<Morceau> lm = new ArrayList<Morceau>(b.getListeMorceaux());
 		Scanner scan = new Scanner(System.in);
-		System.out.println("On va maintenant refresh ");
+		System.out.println("\n///////////////////////// On modifie le titre de "+lm.get(1).getTitreMorceau()+" ////////////////////////////////\n");
+		lm.get(1).setTitreMorceau("Nouveau titre");
+		String str;
 		//String str = scan.nextLine();
-		
-		ArrayList<Morceau> arrayl = new ArrayList<Morceau>(b.getListeMorceaux());
-		System.out.println("*******************"+arrayl.get(2));
-		arrayl.get(2).setAlbumMorceau(arrayl.get(0).getAlbumMorceau());;
 		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
-		//str = scan.nextLine();
-		/*arrayl.get(3).supprimerMorceau();;
-		b.sauvegarderLaPartieMetierEnBaseDeDonnées();*/
-		
 		DAOJPA.commit();
-		
+		System.out.println("\n///////////////////////// On modifie l'album de "+lm.get(2).getTitreMorceau()+" qui devient l'album de "+lm.get(0).getTitreMorceau()+" ////////////////////////////////\n");
+		lm.get(2).setAlbumMorceau(lm.get(0).getAlbumMorceau());;
+		//str = scan.nextLine();
+		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		DAOJPA.commit();
+		System.out.println("\n///////////////////////// On modifie l'artistede "+lm.get(4).getTitreMorceau()+" qui devient l'artiste de "+lm.get(2).getTitreMorceau()+" ////////////////////////////////\n");
+		lm.get(4).setArtisteMorceau(lm.get(2).getArtisteMorceau());;
+		//str = scan.nextLine();
+		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		DAOJPA.commit();
+		System.out.println("\n///////////////////////// On supprime le morceau "+lm.get(3).getTitreMorceau()+" ////////////////////////////////\n");
+		lm.get(3).supprimerMorceau();
+		//str = scan.nextLine();
+		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		DAOJPA.commit();
+		System.out.println("\n///////////////////////// Ajout de la playlist  ////////////////////////////////\n");
+		Playlist playlistTest = new Playlist("Ma playlist","c'est un test");
+		b.getListPlaylists().add(playlistTest);
+		str = scan.nextLine();
+		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		//DAOJPA.commit();
+		System.out.println("\n///////////////////////// Ajout de plusieurs morceaux a la playlist  ////////////////////////////////\n");
+		playlistTest.ajoutMorceauPlaylist(lm.get(0));
+		playlistTest.ajoutMorceauPlaylist(lm.get(1));
+		playlistTest.ajoutMorceauPlaylist(lm.get(2));
+		str = scan.nextLine();
+		b.sauvegarderLaPartieMetierEnBaseDeDonnées();
+		DAOJPA.commit();
+;		
 	}
 }

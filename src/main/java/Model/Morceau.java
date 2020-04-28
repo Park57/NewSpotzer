@@ -28,14 +28,13 @@ public class Morceau {
 	private int etatMetier;
 
 	public Morceau() {
-		this.codeMorceau=-1;
+		this.codeMorceau = -1;
 		etatMetier = Bibliotheque.CREE;
 	}
 
 	/*
-	 * Ici on construit un morceau. On reçoit un type File, qu'on passe en
-	 * MP3File, si cela soulève une exception alors on sait que ce n'est pas un
-	 * mp3
+	 * Ici on construit un morceau. On reçoit un type File, qu'on passe en MP3File,
+	 * si cela soulève une exception alors on sait que ce n'est pas un mp3
 	 */
 	public Morceau(File mp3) {
 		MP3File morceau;
@@ -167,21 +166,15 @@ public class Morceau {
 
 	// fin constructeur
 
-	
-	public void supprimerMorceau()
-	{
-		this.etatMetier=Bibliotheque.SUPPRIMER;
-		if(this.albumMorceau!=null)
-		{
-			if(this.albumMorceau.getMorceauxAlbum().size()<=1)
-			{
+	public void supprimerMorceau() {
+		this.etatMetier = Bibliotheque.SUPPRIMER;
+		if (this.albumMorceau != null) {
+			if (this.albumMorceau.getMorceauxAlbum().size() <= 1) {
 				this.albumMorceau.setEtatMetier(Bibliotheque.SUPPRIMER);
 			}
 		}
-		if(this.artisteMorceau!=null)
-		{
-			if(this.artisteMorceau.getMorceauxArtiste().size()<=1)
-			{
+		if (this.artisteMorceau != null) {
+			if (this.artisteMorceau.getMorceauxArtiste().size() <= 1) {
 				this.artisteMorceau.setEtatMetier(Bibliotheque.SUPPRIMER);
 			}
 		}
@@ -207,7 +200,7 @@ public class Morceau {
 	}
 
 	public void setTitreMorceau(String titreMorceau) {
-		this.etatMetier=Bibliotheque.MODIFIE;
+		this.etatMetier = Bibliotheque.MODIFIE;
 		this.titreMorceau = titreMorceau;
 	}
 
@@ -216,8 +209,8 @@ public class Morceau {
 	}
 
 	public void setAlbumMorceau(Album albumMorceau) {
-		this.albumMorceau=albumMorceau;
-		this.etatMetier=Bibliotheque.MODIFIE;
+		this.albumMorceau = albumMorceau;
+		this.etatMetier = Bibliotheque.MODIFIE;
 	}
 
 	public Artiste getArtisteMorceau() {
@@ -226,7 +219,7 @@ public class Morceau {
 
 	public void setArtisteMorceau(Artiste artisteMorceau) {
 		this.artisteMorceau = artisteMorceau;
-		this.etatMetier=Bibliotheque.MODIFIE;
+		this.etatMetier = Bibliotheque.MODIFIE;
 	}
 
 	public Set<Genre> getGenresMorceau() {
@@ -235,7 +228,7 @@ public class Morceau {
 
 	public void setGenresMorceau(Set<Genre> genresMorceau) {
 		this.genresMorceau = genresMorceau;
-		this.etatMetier=Bibliotheque.MODIFIE;
+		this.etatMetier = Bibliotheque.MODIFIE;
 	}
 
 	public String getCheminMorceau() {
@@ -276,7 +269,7 @@ public class Morceau {
 
 	public void setCommentaireMorceau(String commentaireMorceau) {
 		this.commentaireMorceau = commentaireMorceau;
-		this.etatMetier=Bibliotheque.MODIFIE;
+		this.etatMetier = Bibliotheque.MODIFIE;
 	}
 
 	public Set<Playlist> getPlaylistsMorceau() {
@@ -377,11 +370,21 @@ public class Morceau {
 
 	@Override
 	public String toString() {
-		return "Morceau \n[\ncodeMorceau=" + codeMorceau + ",\n titreMorceau=" + titreMorceau + /*",\n albumMorceau="
-				+ albumMorceau.getTitreAlbum() +*/ /*",\n artistesMorceau=" + artisteMorceau.getNomArtiste() +*/ ",\n genresMorceau=" + genresMorceau
-				+ ",\n cheminMorceau=" + cheminMorceau + ",\n anneeMorceau=" + anneeMorceau + ",\n parolesMorceau="
-				+ parolesMorceau + ",\n auteurCompositeurMorceau=" + auteurCompositeurMorceau + ",\n commentaireMorceau="
-				+ commentaireMorceau + "\n]";
+		String res = "";
+		res += "\nMorceau \n[\ncodeMorceau=" + codeMorceau + ",\n titreMorceau=" + titreMorceau;
+		res += ",\n artisteMorceau=";
+		if (this.artisteMorceau != null)
+			res += ",\n artisteMorceau=" + this.artisteMorceau.getNomArtiste() + ",\n";
+		else
+			res += "\nCe morceau n'a pas d'artiste,\n";
+		if (this.albumMorceau != null)
+			res += " albumMorceau=" + this.albumMorceau.getTitreAlbum();
+		else
+			res += "Ce morceau n'a pas d'album";
+		res += ",\n genresMorceau=" + genresMorceau + ",\n cheminMorceau=" + cheminMorceau + ",\n anneeMorceau="
+				+ anneeMorceau + ",\n parolesMorceau=" + parolesMorceau + ",\n auteurCompositeurMorceau="
+				+ auteurCompositeurMorceau + ",\n commentaireMorceau=" + commentaireMorceau + "\n]";
+		return res;
 	}
 
 }

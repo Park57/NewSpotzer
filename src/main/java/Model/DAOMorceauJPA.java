@@ -18,48 +18,28 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 
 	@Override
 	public void saveAll(Set<Morceau> listeM) {
-		System.out.println("            APPEL DE SAVEALL  \n");
 		for (Morceau m : listeM) {
-			System.out.println("---------------"+m.getTitreMorceau() + " A l'etat : "+m.getEtatMetier());
 			if (m.getEtatMetier() != Bibliotheque.INCHANGE) {
-				if (m.getEtatMetier() == Bibliotheque.CREE){
-					System.out.println("On sauvegarde " +m.getTitreMorceau());
+				if (m.getEtatMetier() == Bibliotheque.CREE) {
+					System.out.println("Morceau " + m.getTitreMorceau()+" sauvegarde");
 					save(m);
 					m.setEtatMetier(Bibliotheque.INCHANGE);
-				}
-				else if (m.getEtatMetier() == Bibliotheque.MODIFIE){
-					System.out.println("On modifie " +m.getTitreMorceau());
+				} else if (m.getEtatMetier() == Bibliotheque.MODIFIE) {
+					System.out.println("Morceau "+ m.getTitreMorceau()+" modifie");
 					merge(m);
 					m.setEtatMetier(Bibliotheque.INCHANGE);
-				}
-					
-				else if (m.getEtatMetier() == Bibliotheque.SUPPRIMER){
-					System.out.println("On supprime " +m.getTitreMorceau());
+				} else if (m.getEtatMetier() == Bibliotheque.SUPPRIMER) {
+					System.out.println("Morceau " + m.getTitreMorceau()+" supprime");
 					delete(m);
 				}
-					
 				m.setEtatMetier(Bibliotheque.INCHANGE);
 			}
-			//save(m);
 		}
-		//DAOJPA.commit();
 	}
 
 	@Override
 	public void save(Morceau morceau) {
 		try {
-			/*if (morceau.getAlbumMorceau() != null) {
-				if (DAOAlbumJPA.getInstance().get(morceau.getAlbumMorceau().getCodeAlbum()) != null) {
-					System.out.println("Existe déjà");
-				} else
-					DAOJPA.getManager().persist(morceau.getAlbumMorceau());
-			}
-			if (morceau.getArtisteMorceau() != null) {
-				if (DAOArtisteJPA.getInstance().get(morceau.getArtisteMorceau().getCodeArtiste()) != null) {
-					System.out.println("Existe déjà");
-				} else
-					DAOJPA.getManager().persist(morceau.getArtisteMorceau());
-			}*/
 			DAOJPA.getManager().persist(morceau);
 			DAOJPA.commit(); /* discutable de commiter ici */
 		} catch (Exception e) {
@@ -69,20 +49,15 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 
 	@Override
 	public void delete(Morceau morceau) {
-		if(DAOMorceauJPA.getInstance().get(morceau.getCodeMorceau())!=null)
-		{
-			Morceau m =DAOJPA.getManager().merge(morceau);
+		if (DAOMorceauJPA.getInstance().get(morceau.getCodeMorceau()) != null) {
+			Morceau m = DAOJPA.getManager().merge(morceau);
 			DAOJPA.getManager().remove(m);
-		}		
-		//DAOJPA.commit();
+		}
 	}
 
 	@Override
 	public void merge(Morceau morceau) {
 		DAOJPA.getManager().merge(morceau);
-		//DAOJPA.getManager().refresh(m);
-		//DAOJPA.commit(); /* discutable de commiter ici */
-
 	}
 
 	@Override
@@ -95,7 +70,7 @@ public class DAOMorceauJPA extends DAOJPA implements DAOMorceau {
 	public Morceau get(int codeMorceau) {
 		Morceau morceau = DAOJPA.getManager().find(Morceau.class, codeMorceau);
 		return morceau;
-		
+
 	}
 
 }

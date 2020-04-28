@@ -3,50 +3,49 @@ package Model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Transient;
+
 public class Playlist {
 	private int codePlaylist;
-	private Utilisateur createurPlaylist;
-	private int tempsPlaylist;
+	// private Utilisateur createurPlaylist;
+	//private int tempsPlaylist;
 	private Set<Morceau> morceauxPlaylist = new HashSet<Morceau>();
 	private String titrePlaylist;
 	private String descriptionPlaylist;
-	
-	
-	public Playlist(Utilisateur createurPlaylist, String titrePlaylist,
-			String descriptionPlaylist) {
+	@Transient
+	private int etatMetier;
+
+	public Playlist(/* Utilisateur createurPlaylist, */ String titrePlaylist, String descriptionPlaylist) {
 		this.codePlaylist = -1;
-		this.createurPlaylist = createurPlaylist;
+		// this.createurPlaylist = createurPlaylist;
 		this.titrePlaylist = titrePlaylist;
 		this.descriptionPlaylist = descriptionPlaylist;
-	}
-	public Playlist(){
-		
+		etatMetier = Bibliotheque.CREE;
 	}
 
-	public void AjouterMorceau(Morceau m){
-		this.morceauxPlaylist.add(m);
+	public Playlist() {
+		this.codePlaylist = -1;
+		etatMetier = Bibliotheque.CREE;
 	}
 
-	
 	///////////////////////////
 	//// GETTERS & SETTERS ////
 	///////////////////////////
-	
-	
-	
+
 	public int getCodePlaylist() {
 		return codePlaylist;
 	}
 
-	public int getTempsPlaylist() {
+	/*public int getTempsPlaylist() {
 		return tempsPlaylist;
-	}
-	public void setTempsPlaylist(int tempsPlaylist) {
+	}*/
+
+	/*public void setTempsPlaylist(int tempsPlaylist) {
 		this.tempsPlaylist = tempsPlaylist;
-	}
-	public Utilisateur getCreateurPlaylist() {
-		return createurPlaylist;
-	}
+	}*/
+	/*
+	 * public Utilisateur getCreateurPlaylist() { return createurPlaylist; }
+	 */
 
 	public Set<Morceau> getMorceauxPlaylist() {
 		return morceauxPlaylist;
@@ -71,25 +70,38 @@ public class Playlist {
 	public void setDescriptionPlaylist(String descriptionPlaylist) {
 		this.descriptionPlaylist = descriptionPlaylist;
 	}
-	
-	////////////////////////////////
-	/// AJOUTER RETIRER PRESENCE ///
-	////////////////////////////////
 
+	public int getEtatMetier() {
+		return etatMetier;
+	}
+
+	public void setEtatMetier(int etatMetier) {
+		this.etatMetier = etatMetier;
+
+		////////////////////////////////
+		/// AJOUTER RETIRER PRESENCE ///
+		////////////////////////////////
+
+	}
 
 	public void ajoutMorceauPlaylist(Morceau m) {
 		this.morceauxPlaylist.add(m);
+		this.etatMetier = Bibliotheque.MODIFIE;
 	}
-	
+
 	public boolean presenceMorceauPlaylist(Morceau m) {
 		return this.morceauxPlaylist.contains(m);
 	}
-	
+
 	public void retirerMorceauPlaylist(Morceau m) {
 		this.morceauxPlaylist.remove(m);
+		this.etatMetier = Bibliotheque.MODIFIE;
 	}
 
-	
+	public void supprimerPlaylist() {
+		this.etatMetier = Bibliotheque.SUPPRIMER;
+	}
+
 	/////////////////////
 	// EQUALS TOSTRING //
 	/////////////////////
@@ -104,11 +116,11 @@ public class Playlist {
 		Playlist other = (Playlist) obj;
 		if (codePlaylist != other.codePlaylist)
 			return false;
-		if (createurPlaylist == null) {
-			if (other.createurPlaylist != null)
-				return false;
-		} else if (!createurPlaylist.equals(other.createurPlaylist))
-			return false;
+		/*
+		 * if (createurPlaylist == null) { if (other.createurPlaylist != null) return
+		 * false; } else if (!createurPlaylist.equals(other.createurPlaylist)) return
+		 * false;
+		 */
 		if (descriptionPlaylist == null) {
 			if (other.descriptionPlaylist != null)
 				return false;
@@ -127,16 +139,12 @@ public class Playlist {
 		return true;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Playlist [codePlaylist=" + codePlaylist + ", createurPlaylist=" + createurPlaylist
-				+ ", morceauxPlaylist=" + morceauxPlaylist + ", titrePlaylist=" + titrePlaylist
-				+ ", descriptionPlaylist=" + descriptionPlaylist + "]";
+		return "Playlist [codePlaylist=" + codePlaylist + /*
+															 * ", createurPlaylist=" + createurPlaylist +
+															 */", morceauxPlaylist=" + morceauxPlaylist
+				+ ", titrePlaylist=" + titrePlaylist + ", descriptionPlaylist=" + descriptionPlaylist + "]";
 	}
-	
-	
-	
-	
+
 }

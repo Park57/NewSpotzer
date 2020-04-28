@@ -128,44 +128,8 @@
 			<basic name="descriptionPlaylist">
 				<column name="descriptionPlaylist" />
 			</basic>
-			<basic name="tempsPlaylist">
-				<column name="tempsPlaylist" />
-			</basic>
-			<many-to-one name="createurPlaylist">
-				<join-column name="codeUtilisateur"
-					referenced-column-name="codeUtilisateur" />
-			</many-to-one>
 			<many-to-many name="morceauxPlaylist"
 				mapped-by="playlistsMorceau" />
 		</attributes>
 	</entity>
-	<entity class="Model.Utilisateur">
-		<table name="utilisateur" />
-		<attributes>
-			<id name="codeUtilisateur">
-				<column name="codeUtilisateur" />
-				<generated-value strategy="IDENTITY" />
-			</id>
-			<basic name="nomUtilisateur">
-				<column name="nomUtilisateur" />
-			</basic>
-			<basic name="prenomUtilisateur">
-				<column name="prenomUtilisateur" />
-			</basic>
-			<basic name="pseudoUtilisateur">
-				<column name="pseudoUtilisateur" />
-			</basic>
-			<basic name="passwordUtilisateur">
-				<column name="motDePasseUtilisateur" />
-			</basic>
-			<one-to-many name="playlistsUtilisateur"
-				mapped-by="createurPlaylist">
-				<cascade>
-					<cascade-persist />
-					<cascade-remove />
-				</cascade>
-			</one-to-many>
-		</attributes>
-	</entity>
-
 </entity-mappings>

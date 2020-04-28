@@ -15,11 +15,12 @@ public class Bibliotheque {
 	public final static int CREE = 1;
 	public final static int MODIFIE = 2;
 	public final static int SUPPRIMER = 3;
-	
+
 	private Set<Artiste> listeArtistes = new HashSet<Artiste>();
 	private Set<Album> listeAlbums = new HashSet<Album>();
 	private Set<Morceau> listeMorceaux = new HashSet<Morceau>();
 	private Set<Genre> listeGenres = new HashSet<Genre>();
+	private Set<Playlist>listPlaylists = new HashSet<Playlist>();
 
 	public Bibliotheque() {
 
@@ -36,14 +37,16 @@ public class Bibliotheque {
 		listeAlbums = DAOAlbumJPA.getInstance().loadAll();
 		listeGenres = DAOGenreJPA.getInstance().loadAll();
 		listeMorceaux = DAOMorceauJPA.getInstance().loadAll();
+		listPlaylists = DAOPlaylistJPA.getInstance().loadAll();
 	}
 
 	public void sauvegarderLaPartieMetierEnBaseDeDonnées() {
+		System.out.println("Sauvegarde de la partie metier en base de données");
 		DAOAlbumJPA.getInstance().saveAll(listeAlbums);
 		DAOArtisteJPA.getInstance().saveAll(listeArtistes);
 		DAOMorceauJPA.getInstance().saveAll(listeMorceaux);
+		DAOPlaylistJPA.getInstance().saveAll(listPlaylists);
 	}
-	
 
 	public void ajouterUnMorceau(File mp3) {
 		MP3File morceau = null;
@@ -62,13 +65,11 @@ public class Bibliotheque {
 			try {
 				String nomArtiste = tags.getLeadArtist();
 				nomArtiste = nomArtiste.trim();
-				System.out.println("%%%%%%%%%%%%%%% "+nomArtiste);
 				if (!nomArtiste.equals("")) {
 					boolean trouve = false;
 					for (Artiste a : listeArtistes) {
 						// Demander a l'utilisateur
 
-						System.out.println("Artiste : " + nomArtiste);
 						if (a.getNomArtiste().equals(nomArtiste)) {
 
 							artistemp3 = a;
@@ -88,7 +89,6 @@ public class Bibliotheque {
 			try {
 				String[] genres = tags.getSongGenre().split(",");
 				for (String genre : genres) {
-					System.out.println("GENRE : " + genre);
 					try {
 						if (genre.length() != 0) {
 							boolean trouve = false;
@@ -124,7 +124,6 @@ public class Bibliotheque {
 			// completion de l'album
 			try {
 				String nomAlbum = tags.getAlbumTitle();
-				System.out.println("%%%%%%%%%%%%%%% "+nomAlbum);
 				int anneeAlbum = Integer.parseInt(tags.getYearReleased());
 				boolean trouve = false;
 				for (Album a : listeAlbums) {
@@ -225,7 +224,7 @@ public class Bibliotheque {
 			morceaump3.setEtatMetier(CREE);
 			listeMorceaux.add(morceaump3);
 
-			System.out.println("On a ajouté le morceau : \n\n" + morceaump3);
+			System.out.println("On a ajouté le morceau : \n" + morceaump3);
 
 		} catch (IOException e) {
 			System.out.println(mp3.getName() + " n'est pas un fihcier de type mp3...");
@@ -234,13 +233,13 @@ public class Bibliotheque {
 			System.out.println("tag excpetion");
 			// e.printStackTrace();
 		}
-		System.out.println("&&&& Nous avons donc actuellement : &&&&");
+		System.out.println("|||||||||||||||||  Nous avons donc actuellement :  |||||||||||||||||||");
 		for (Album a : listeAlbums)
 			System.out
 					.println("L'album : " + a.getTitreAlbum() + " possede : " + a.getMorceauxAlbum().size() + "titres");
 		for (Artiste a : listeArtistes)
 			System.out.println(
-					"L'artiste " + a.getNomArtiste() + " a chanter " + a.getMorceauxArtiste().size() + " titres");
+					"L'artiste " + a.getNomArtiste() + " a chanter : " + a.getMorceauxArtiste().size() + " titres");
 		System.out.println("\n----------------------------------------------------------------------\n");
 	}
 
@@ -275,7 +274,14 @@ public class Bibliotheque {
 	public void setListeGenres(Set<Genre> listeGenres) {
 		this.listeGenres = listeGenres;
 	}
-	
+
+	public Set<Playlist> getListPlaylists() {
+		return listPlaylists;
+	}
+
+	public void setListPlaylists(Set<Playlist> listPlaylists) {
+		this.listPlaylists = listPlaylists;
+	}
 	
 	
 
