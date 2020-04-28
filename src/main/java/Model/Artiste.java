@@ -4,23 +4,26 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Transient;
+
 public class Artiste implements Serializable {
 
 	private static final long serialVersionUID = -3376961211561668963L;
 	private int codeArtiste;
 	private String nomArtiste;
 	private Set<Morceau> morceauxArtiste = new HashSet<Morceau>();
-	//private int etatMetier;
+	@Transient
+	private int etatMetier;
 
 	public Artiste(String nomArtiste) {
 		this.codeArtiste = -1;
 		this.nomArtiste = nomArtiste;
-		//etatMetier = Bibliotheque.CREE;
+		etatMetier = Bibliotheque.CREE;
 	}
 	
 	public Artiste(){
 		this.codeArtiste=-1;
-		//etatMetier = Bibliotheque.CREE;
+		etatMetier = Bibliotheque.CREE;
 	}
 
 	public int getCodeArtiste() {
@@ -31,12 +34,12 @@ public class Artiste implements Serializable {
 		this.codeArtiste = codeArtiste;
 	}
 
-	/*public int getEtatMetier() {
+	public int getEtatMetier() {
 		return etatMetier;
-	}*/
+	}
 
 	public void setEtatMetier(int etatMetier) {
-		//this.etatMetier = etatMetier;
+		this.etatMetier = etatMetier;
 	}
 
 	public String getNomArtiste() {

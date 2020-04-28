@@ -39,8 +39,8 @@ public class Bibliotheque {
 	}
 
 	public void sauvegarderLaPartieMetierEnBaseDeDonnées() {
-		// DAOArtisteJPA.getInstance().saveAll(listeArtistes);
-		// DAOAlbumJPA.getInstance().saveAll(listeAlbums);
+		DAOAlbumJPA.getInstance().saveAll(listeAlbums);
+		DAOArtisteJPA.getInstance().saveAll(listeArtistes);
 		DAOMorceauJPA.getInstance().saveAll(listeMorceaux);
 	}
 	

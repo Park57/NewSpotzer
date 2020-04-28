@@ -171,6 +171,20 @@ public class Morceau {
 	public void supprimerMorceau()
 	{
 		this.etatMetier=Bibliotheque.SUPPRIMER;
+		if(this.albumMorceau!=null)
+		{
+			if(this.albumMorceau.getMorceauxAlbum().size()<=1)
+			{
+				this.albumMorceau.setEtatMetier(Bibliotheque.SUPPRIMER);
+			}
+		}
+		if(this.artisteMorceau!=null)
+		{
+			if(this.artisteMorceau.getMorceauxArtiste().size()<=1)
+			{
+				this.artisteMorceau.setEtatMetier(Bibliotheque.SUPPRIMER);
+			}
+		}
 	}
 	///////////////////////////
 	//// GETTERS & SETTERS ////

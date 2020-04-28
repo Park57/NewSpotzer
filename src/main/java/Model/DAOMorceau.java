@@ -9,4 +9,5 @@ public interface DAOMorceau {
 	void delete(Morceau morceau);
 	void merge(Morceau morceau);
 	Set<Morceau> loadAll();
+	Morceau get(int codeMorceau);
 }

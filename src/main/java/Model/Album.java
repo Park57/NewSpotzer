@@ -4,13 +4,16 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Transient;
+
 public class Album implements Serializable {
 	private static final long serialVersionUID = 4926307291255631743L;
 	private int codeAlbum;
 	private String titreAlbum;
 	private Set<Morceau> morceauxAlbum = new HashSet<Morceau>();
 	private int anneeAlbum;
-	//private int etatMetier;
+	@Transient
+	private int etatMetier;
 
 
 	public Album(String titreAlbum, int anneeAlbum) {
@@ -19,12 +22,12 @@ public class Album implements Serializable {
 			this.titreAlbum = titreAlbum;
 		if (anneeAlbum != -1)
 			this.anneeAlbum = anneeAlbum;
-		//etatMetier = Bibliotheque.CREE;
+		etatMetier = Bibliotheque.CREE;
 	}
 
 	public Album() {
 		this.codeAlbum=-1;
-		//etatMetier = Bibliotheque.CREE;
+		etatMetier = Bibliotheque.CREE;
 	}
 
 	public int getCodeAlbum() {
@@ -59,12 +62,12 @@ public class Album implements Serializable {
 		this.anneeAlbum = anneeAlbum;
 	}
 	
-	/*public int getEtatMetier() {
+	public int getEtatMetier() {
 		return etatMetier;
-	}*/
+	}
 
 	public void setEtatMetier(int etatMetier) {
-		//this.etatMetier = etatMetier;
+		this.etatMetier = etatMetier;
 	}
 
 	public void ajoutMorceauAlbum(Morceau m){
