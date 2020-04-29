@@ -283,6 +283,23 @@ public class Bibliotheque {
 		this.listPlaylists = listPlaylists;
 	}
 	
+	public void ajouterMorceauPlaylist(Morceau m){
+		ArrayList<Playlist> listePlaylists = new ArrayList<Playlist>(this.getListPlaylists());
+		listePlaylists.get(0).ajoutMorceauPlaylist(m);
+		ajouterPlaylistMorceau(listePlaylists.get(0), m);
+		
+	}
+	
+	public void ajouterPlaylistMorceau(Playlist p, Morceau m){
+		m.ajoutPlaylistMorceau(p);
+	}
+	
+	public void retirerMorceauPlaylist(Morceau m){
+		ArrayList<Playlist> listePlaylists = new ArrayList<Playlist>(this.getListPlaylists());
+		listePlaylists.get(0).retirerMorceauPlaylist(m);
+		m.retirerPlaylistMorceau(listePlaylists.get(0));
+	}
+	
 	
 
 }

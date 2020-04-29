@@ -8,7 +8,7 @@ import javax.persistence.Transient;
 public class Playlist {
 	private int codePlaylist;
 	// private Utilisateur createurPlaylist;
-	//private int tempsPlaylist;
+	// private int tempsPlaylist;
 	private Set<Morceau> morceauxPlaylist = new HashSet<Morceau>();
 	private String titrePlaylist;
 	private String descriptionPlaylist;
@@ -36,13 +36,14 @@ public class Playlist {
 		return codePlaylist;
 	}
 
-	/*public int getTempsPlaylist() {
-		return tempsPlaylist;
-	}*/
+	/*
+	 * public int getTempsPlaylist() { return tempsPlaylist; }
+	 */
 
-	/*public void setTempsPlaylist(int tempsPlaylist) {
-		this.tempsPlaylist = tempsPlaylist;
-	}*/
+	/*
+	 * public void setTempsPlaylist(int tempsPlaylist) { this.tempsPlaylist =
+	 * tempsPlaylist; }
+	 */
 	/*
 	 * public Utilisateur getCreateurPlaylist() { return createurPlaylist; }
 	 */
@@ -94,7 +95,15 @@ public class Playlist {
 	}
 
 	public void retirerMorceauPlaylist(Morceau m) {
-		this.morceauxPlaylist.remove(m);
+		Morceau mo = null;
+		for (Morceau morc : morceauxPlaylist) {
+			if (morc.equals(m)) {
+				mo = morc;
+				System.out.println("ON A BIEN TROUVE LE MORCEAU");
+			}
+		}
+		this.morceauxPlaylist.remove(mo);
+		// this.morceauxPlaylist.remove(m);
 		this.etatMetier = Bibliotheque.MODIFIE;
 	}
 
@@ -117,9 +126,9 @@ public class Playlist {
 		if (codePlaylist != other.codePlaylist)
 			return false;
 		/*
-		 * if (createurPlaylist == null) { if (other.createurPlaylist != null) return
-		 * false; } else if (!createurPlaylist.equals(other.createurPlaylist)) return
-		 * false;
+		 * if (createurPlaylist == null) { if (other.createurPlaylist != null)
+		 * return false; } else if
+		 * (!createurPlaylist.equals(other.createurPlaylist)) return false;
 		 */
 		if (descriptionPlaylist == null) {
 			if (other.descriptionPlaylist != null)
@@ -141,10 +150,11 @@ public class Playlist {
 
 	@Override
 	public String toString() {
-		return "Playlist [codePlaylist=" + codePlaylist + /*
-															 * ", createurPlaylist=" + createurPlaylist +
-															 */", morceauxPlaylist=" + morceauxPlaylist
-				+ ", titrePlaylist=" + titrePlaylist + ", descriptionPlaylist=" + descriptionPlaylist + "]";
+		return "Playlist [codePlaylist=" + codePlaylist
+				+ /*
+					 * ", createurPlaylist=" + createurPlaylist +
+					 */", morceauxPlaylist=" + morceauxPlaylist + ", titrePlaylist=" + titrePlaylist
+				+ ", descriptionPlaylist=" + descriptionPlaylist + "]";
 	}
 
 }

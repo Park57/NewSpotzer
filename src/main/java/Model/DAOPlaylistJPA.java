@@ -66,8 +66,11 @@ public class DAOPlaylistJPA extends DAOJPA implements DAOPlaylist {
 				DAOJPA.getManager().createQuery("SELECT p FROM Playlist p", Playlist.class).getResultList());
 	}
 
+	
+	
 	public Playlist get(int code) {
 		Playlist playlist = DAOJPA.getManager().find(Playlist.class, code);
 		return playlist;
 	}
+
 }

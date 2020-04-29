@@ -178,6 +178,9 @@ public class Morceau {
 				this.artisteMorceau.setEtatMetier(Bibliotheque.SUPPRIMER);
 			}
 		}
+		for(Playlist p : this.playlistsMorceau){
+			p.retirerMorceauPlaylist(this);
+		}
 	}
 	///////////////////////////
 	//// GETTERS & SETTERS ////
@@ -285,6 +288,7 @@ public class Morceau {
 	////////////////////////////////
 
 	public void ajoutPlaylistMorceau(Playlist p) {
+		this.setEtatMetier(Bibliotheque.MODIFIE);
 		this.playlistsMorceau.add(p);
 	}
 
@@ -293,7 +297,17 @@ public class Morceau {
 	}
 
 	public void retirerPlaylistMorceau(Playlist p) {
-		this.genresMorceau.remove(p);
+		System.out.println(playlistsMorceau.size());
+		Playlist play = null;
+		for (Playlist pl : playlistsMorceau) {
+			if (pl.equals(p)) {
+				play = pl;
+				System.out.println("ON A BIEN TROUVE LA PLAYLIST");
+			}
+		}
+		this.setEtatMetier(Bibliotheque.MODIFIE);
+		this.playlistsMorceau.remove(play);
+		System.out.println(playlistsMorceau.size());
 	}
 
 	public void ajoutGenreMorceau(Genre g) {
